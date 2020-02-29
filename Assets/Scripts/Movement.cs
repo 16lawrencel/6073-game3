@@ -5,7 +5,7 @@ using static Globals;
 
 public class Movement : MonoBehaviour
 {
-    internal float speed = 10f;
+    internal float speed = 6f;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
