@@ -20,10 +20,10 @@ public class PlayerAnimation : MonoBehaviour {
         }
 
         if (rb.velocity.x < 0) {
-            sprite.localScale = new Vector3(-0.1f, 0.1f, 1);
+            sprite.localScale = new Vector3(-1f, 1f, 1);
         }
         else {
-            sprite.localScale = new Vector3(0.1f, 0.1f, 1);
+            sprite.localScale = new Vector3(1f, 1f, 1);
         }
     }
 }

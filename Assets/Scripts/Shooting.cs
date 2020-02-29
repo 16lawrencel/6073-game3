@@ -15,14 +15,14 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         camera = Camera.main;
-        rotator = gun.GetComponent<Rotation>();
+        //rotator = gun.GetComponent<Rotation>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-        rotator.FaceToward(mousePosition);
+        // rotator.FaceToward(mousePosition);
 
         if (Input.GetMouseButtonDown(0))
         {
