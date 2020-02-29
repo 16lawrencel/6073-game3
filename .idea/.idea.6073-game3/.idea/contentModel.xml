@@ -3,9 +3,46 @@
   <component name="ContentModelStore">
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="6073-game3.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Materials" t="Include">
+          <e p="SpriteShaders" t="Include">
+            <e p="CameraDepthNormalsTexture.shader" t="Include" />
+            <e p="CameraDepthTexture.shader" t="Include" />
+            <e p="CameraNormalsTexture.shader" t="Include" />
+            <e p="CGIncludes" t="Include">
+              <e p="Noise" t="Include">
+                <e p="ClassicNoise2D.hlsl" t="Include" />
+                <e p="ClassicNoise3D.hlsl" t="Include" />
+                <e p="Noise2d.cginc" t="Include" />
+                <e p="Noise3d.cginc" t="Include" />
+                <e p="SimplexNoise2D.hlsl" t="Include" />
+                <e p="SimplexNoise3D.hlsl" t="Include" />
+              </e>
+              <e p="ShaderMaths.cginc" t="Include" />
+              <e p="ShaderShared.cginc" t="Include" />
+              <e p="SimplexNoise3D.hlsl" t="Include" />
+              <e p="SpriteDissolve.cginc" t="Include" />
+              <e p="SpriteLighting.cginc" t="Include" />
+              <e p="SpritePixelLighting.cginc" t="Include" />
+              <e p="SpriteShadows.cginc" t="Include" />
+              <e p="SpriteSpecular.cginc" t="Include" />
+              <e p="SpriteUnlit.cginc" t="Include" />
+              <e p="SpriteVertexLighting.cginc" t="Include" />
+            </e>
+            <e p="Editor" t="Include">
+              <e p="SpriteDiffuseShaderGUI.cs" t="Include" />
+              <e p="SpriteShaderGUI.cs" t="Include" />
+            </e>
+            <e p="SpritesPixelLit.shader" t="Include" />
+            <e p="SpritesPixelLitDissolve.shader" t="Include" />
+            <e p="SpritesUnlit.shader" t="Include" />
+            <e p="SpritesVertexLit.shader" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
+          <e p="Bullet.cs" t="Include" />
           <e p="Collision.cs" t="Include" />
           <e p="Generation.cs" t="Include" />
           <e p="Globals.cs" t="Include" />

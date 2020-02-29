@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
+        
     }
 
     void OnBecameInvisible()
@@ -25,8 +26,8 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void setDirection(Vector3 direction)
-    {
+    public void setDirection(Vector3 direction) {
+        direction.z = 0;
         this.direction = direction.normalized;
     }
 
