@@ -6,3 +6,4 @@ obj
 .vs
 6073-project3.sln
 Assembly-CSharp.csproj
+.DS_Store
