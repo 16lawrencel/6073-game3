@@ -10,13 +10,13 @@ public class Shooting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rotator = gun.GetComponent<Rotation>();
+        //rotator = gun.GetComponent<Rotation>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        rotator.FaceToward(mousePosition);
+        //rotator.FaceToward(mousePosition);
     }
 }
