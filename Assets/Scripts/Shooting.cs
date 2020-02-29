@@ -5,11 +5,12 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     internal Rotation rotator;
+    public Transform gun;
 
     // Start is called before the first frame update
     void Start()
     {
-        rotator = GetComponent<Rotation>();
+        rotator = gun.GetComponent<Rotation>();
     }
 
     // Update is called once per frame

@@ -11,6 +11,8 @@
           <e p="HealthBar.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
           <e p="PlayerAnimation.cs" t="Include" />
+          <e p="Rotation.cs" t="Include" />
+          <e p="Shooting.cs" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
