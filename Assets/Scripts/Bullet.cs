@@ -6,12 +6,15 @@ public class Bullet : MonoBehaviour
 {
     internal Vector3 direction;
     internal float speed;
+    internal BoxCollider2D boxCollider;
     Camera camera;
 
     // Start is called before the first frame update
     void Start()
     {
         camera = Camera.main;
+        boxCollider = GetComponent<BoxCollider2D>();
+        // boxCollider.size = transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
     }
 
     // Update is called once per frame
@@ -22,12 +25,17 @@ public class Bullet : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        // Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("I collided!");
     }
 
     public void setDirection(Vector3 direction)
     {
-        this.direction = direction.normalized;
+        this.direction = new Vector3(direction.x, direction.y, 0).normalized;
     }
 
     public void setSpeed(float speed)
