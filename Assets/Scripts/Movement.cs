@@ -6,11 +6,11 @@ using static Globals;
 public class Movement : MonoBehaviour
 {
     internal float speed = 10f;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class Movement : MonoBehaviour
             movex += speed;
         }
 
-        var move = new Vector3(movex, movey, 0);
-        transform.position += move * Time.deltaTime;
+        Vector2 move = new Vector2(movex, movey);
+        rb.velocity = move;
     }
 }
