@@ -28,9 +28,16 @@ public class Bullet : MonoBehaviour
         // Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("I collided!");
+        Debug.Log("Bullet collided with " + collision.gameObject);
+
+        EnemyAI enemyAI = (EnemyAI) collision.gameObject.GetComponent<EnemyAI>();
+        if (enemyAI != null)
+        {
+            // call enemy health decrement
+            Destroy(gameObject);
+        }
     }
 
     public void setDirection(Vector3 direction)
