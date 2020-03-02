@@ -19,8 +19,8 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-
         bar.transform.localScale = new Vector2(1f, 1f);
+        bar.transform.position = new Vector3(bar.transform.position.x, bar.transform.position.y, -1f);
     }
 
     void Update()
@@ -28,7 +28,6 @@ public class HealthBar : MonoBehaviour
         float percentage = health.Percentage();
         bool enabled = (percentage != 1f);
 
-        Debug.Log(percentage);
         background.GetComponent<SpriteRenderer>().enabled = enabled;
         barSprite.GetComponent<SpriteRenderer>().enabled = enabled;
 
