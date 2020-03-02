@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sprite
   - Powerup
+  - Enemy
   layers:
   - Default
   - TransparentFX

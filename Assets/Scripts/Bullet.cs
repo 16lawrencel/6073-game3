@@ -33,6 +33,19 @@ public class Bullet : MonoBehaviour
     {
         Debug.Log("Bullet collided with " + collision.gameObject);
 
+        GameObject collisionObject = collision.gameObject;
+
+        switch (collisionObject.tag)
+        {
+            case "Enemy":
+                AttackEnemy(collisionObject);
+                Destroy(gameObject);
+                break;
+            default:
+                break;
+        }
+
+        /*
         EnemyAI enemyAI = (EnemyAI) collision.gameObject.GetComponent<EnemyAI>();
         if (enemyAI != null)
         {
@@ -40,7 +53,19 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             Destroy(enemyAI.gameObject);
         }
+        */
     }
+
+    private void AttackEnemy(GameObject enemy)
+    {
+        Health enemyHealth = enemy.GetComponent<Health>();
+        enemyHealth.Decrement(1);
+        if (enemyHealth.GetCurrentHP() <= 0)
+        {
+            Destroy(enemy);
+        }
+    }
+
     public void setDirection(Vector3 direction)
     {
         this.direction = new Vector3(direction.x, direction.y, 0).normalized;
