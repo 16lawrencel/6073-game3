@@ -34,6 +34,7 @@ public class GameFlow : MonoBehaviour
 	{
         GameObject startRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
         currentRoomPosition = new Vector2Int(0, 0);
+        startRoom.name = "Room " + currentRoomPosition;
         rooms.Add(currentRoomPosition, startRoom);
 	}
 
@@ -50,6 +51,7 @@ public class GameFlow : MonoBehaviour
             // create new room
             // TODO: make settings of room a function of the room position
             newRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
+            newRoom.name = "Room " + newRoomPosition;
             rooms.Add(newRoomPosition, newRoom);
         }
         else
@@ -59,6 +61,7 @@ public class GameFlow : MonoBehaviour
 
         currentRoomPosition = newRoomPosition;
         newRoom.SetActive(true);
-        player.transform.position = new Vector2(0, 0);
+
+        player.transform.position = new Vector2(-12 * deltaX, -5 * deltaY);
     }
 }

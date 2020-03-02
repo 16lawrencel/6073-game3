@@ -49,15 +49,29 @@ public class Generation : MonoBehaviour {
 
 
                     if (TileAt(x - 1, y) == 0) {
-                        CreateTile(floorTile, pos + new Vector3(0, 0, 0.8f), wallRight, bgTiles);
+                        if (y == (int)(maxY / 2))
+                        {
+                            CreateExit(exitTile, pos + new Vector3(0, 0, 0.8f), exitTiles, -1, 0);
+                        }
+                        else
+                        {
+                            CreateTile(floorTile, pos + new Vector3(0, 0, 0.8f), wallRight, bgTiles);
+                        }
                     }
 
                     if (TileAt(x + 1, y) == 0) {
-                        CreateTile(floorTile, pos + new Vector3(0, 0, 0.8f), wallLeft, bgTiles);
+                        if (y == (int)(maxY / 2))
+                        {
+                            CreateExit(exitTile, pos + new Vector3(0, 0, 0.8f), exitTiles, 1, 0);
+                        }
+                        else
+                        {
+                            CreateTile(floorTile, pos + new Vector3(0, 0, 0.8f), wallLeft, bgTiles);
+                        }
                     }
 
                     if (TileAt(x, y + 1) == 0) {
-                        if (x == (int)(maxX / 2) || x == (int)(maxX / 2) - 1) {
+                        if (x == (int)(maxX / 2)) {
                             CreateExit(exitTile, pos + new Vector3(0, 0, 0.9f), exitTiles, 0, 1);
                         } else {
                             CreateTile(floorTile, pos + new Vector3(0, 0, 0.9f), bgFloorUpWall, bgTiles);
@@ -74,7 +88,14 @@ public class Generation : MonoBehaviour {
                     }
 
                     if (TileAt(x, y + 1) == 1) {
-                        CreateTile(floorTile, pos + new Vector3(0, 0, -1.1f), bgFloorDownWall, bgTiles);
+                        if (x == (int)(maxX / 2))
+                        {
+                            CreateExit(exitTile, pos + new Vector3(0, 0, -1.1f), exitTiles, 0, -1);
+                        }
+                        else
+                        {
+                            CreateTile(floorTile, pos + new Vector3(0, 0, -1.1f), bgFloorDownWall, bgTiles);
+                        }
                     }
                 }
             }
