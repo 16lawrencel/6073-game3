@@ -6,17 +6,25 @@ using static Globals;
 public class Movement : MonoBehaviour
 {
     public float speed = 15f;
-    private Rigidbody2D rb;
+    internal Rigidbody2D rigidbody;
+    internal int stuncounter;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        stuncounter = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (stuncounter > 0)
+		{
+            stuncounter--;
+            return;
+		}
+
         float movex = 0;
         float movey = 0;
 
@@ -41,6 +49,12 @@ public class Movement : MonoBehaviour
         }
 
         Vector2 move = new Vector2(movex, movey);
-        rb.velocity = move;
+        rigidbody.velocity = move;
     }
+
+    public void SetStunned()
+	{
+        stuncounter = 30;
+        rigidbody.velocity = new Vector2(0, 0);
+	}
 }

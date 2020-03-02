@@ -4,19 +4,54 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        Debug.Log("collision");
-        GameObject gameObject = col.gameObject;
+    internal Rigidbody2D rigidbody;
+    internal Movement movement;
+    internal Health health;
 
-        switch (gameObject.tag)
+    void Awake()
+	{
+        rigidbody = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Movement>();
+        health = GetComponent<Health>();
+	}
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Player collided with " + collision.gameObject);
+
+        GameObject collisionObject = collision.gameObject;
+
+        switch (collisionObject.tag)
         {
             case "Powerup":
-                GetComponent<Movement>().speed *= 2;
-                Destroy(gameObject);
+                CollectPowerup(collisionObject);
+                break;
+            case "Enemy":
+                AttackedByEnemy(collisionObject);
                 break;
             default:
                 break;
         }
+    }
+
+    private void CollectPowerup(GameObject powerup)
+	{
+        GetComponent<Movement>().speed *= 2;
+        Destroy(powerup);
+    }
+
+    private void AttackedByEnemy(GameObject enemy)
+	{
+        // get pushed back
+        Vector3 enemyToPlayer = (transform.position - enemy.transform.position).normalized;
+        transform.position += enemyToPlayer * 3;
+        movement.SetStunned();
+
+        // deal damage
+        health.Decrement(1);
+        if (health.GetCurrentHP() <= 0)
+		{
+            Destroy(gameObject);
+		}
     }
 }

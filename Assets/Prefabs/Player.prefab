@@ -230,7 +230,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
 --- !u!114 &3048556456832802851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2195727b2d957441cafd6439f2a8e9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 1
+  maxHP: 5
 --- !u!114 &7706528645060658778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7667353194472809882, guid: a2b883b28de4c4ba58fd1811851110c3,
     type: 3}
-  gun: {fileID: 0}
+  gun: {fileID: 1870979}
 --- !u!1 &4210349301963914989
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ PrefabInstance:
     - target: {fileID: 2659916480642114399, guid: 1bc2b871a269241ad8d5bb070a5c78a3,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5672353793662936810, guid: 1bc2b871a269241ad8d5bb070a5c78a3,
         type: 3}
