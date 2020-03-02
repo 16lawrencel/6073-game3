@@ -55,13 +55,21 @@ public class Generation : MonoBehaviour {
                     }
 
                     if (TileAt(x, y + 1) == 0) {
-                        CreateTile(floorTile, pos + new Vector3(0, 0, 0.9f), bgFloorUpWall, bgTiles);
+                        Transform t =  CreateTile(floorTile, pos + new Vector3(0, 0, 0.9f), bgFloorUpWall, bgTiles);
+
+                        if (x == (int)(maxX / 2) || x == (int)(maxX / 2) - 1)
+                        {
+                            Debug.Log(t.transform.position);
+                            t.tag = "Exit";
+                            t.gameObject.name = "Exit";
+                            t.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
+                        }
                     }
                 }
 
                 // Wall
                 else if (TileAt(x, y) == 0) {
-                    Transform t = CreateTile(wallTile, pos + new Vector3(0, 0, -1), bgUpper, wallTiles);
+                    CreateTile(wallTile, pos + new Vector3(0, 0, -1), bgUpper, wallTiles);
 
                     if (TileAt(x, y - 1) == 1) {
                         CreateTile(floorTile, pos + new Vector3(0, 0, -1.1f), wallTop, bgTiles);
