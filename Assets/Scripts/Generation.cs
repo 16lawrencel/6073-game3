@@ -38,52 +38,38 @@ public class Generation : MonoBehaviour {
         for (int x = 0; x < maxX; x++) {
             for (int y = 0; y < maxY; y++) {
                 Vector3 pos = (new Vector3(x * 2 - 22, y * 2 - 12, 2)) + transform.position; // position is relative to our position
-                Transform t = null;
-                Transform tf = Instantiate(floorTile, pos + new Vector3(0, 0, 1), Quaternion.identity);
-                tf.parent = bgTiles;
-                tf.tag = "Wall";
+
+                Transform tf = CreateTile(floorTile, pos + new Vector3(0, 0, 1), null, bgTiles);
+
                 // Open space
                 if (TileAt(x, y) == 1) {
                     tf.GetComponent<SpriteRenderer>().sprite = bgFloor;
+
+
                     if (TileAt(x - 1, y) == 0) {
-                        Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, 0.8f), Quaternion.identity);
-                        tf2.GetComponent<SpriteRenderer>().sprite = wallRight;
-                        tf2.parent = bgTiles;
-                        tf2.tag = "Wall";
+                        CreateTile(floorTile, pos + new Vector3(0, 0, 0.8f), wallRight, bgTiles);
                     }
+
                     if (TileAt(x + 1, y) == 0) {
-                        Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, 0.8f), Quaternion.identity);
-                        tf2.GetComponent<SpriteRenderer>().sprite = wallLeft;
-                        tf2.parent = bgTiles;
-                        tf2.tag = "Wall";
+                        CreateTile(floorTile, pos + new Vector3(0, 0, 0.8f), wallLeft, bgTiles);
                     }
+
                     if (TileAt(x, y + 1) == 0) {
-                        Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, 0.9f), Quaternion.identity);
-                        tf2.GetComponent<SpriteRenderer>().sprite = bgFloorUpWall;
-                        tf2.parent = bgTiles;
-                        tf2.tag = "Wall";
+                        CreateTile(floorTile, pos + new Vector3(0, 0, 0.9f), bgFloorUpWall, bgTiles);
                     }
                 }
+
                 // Wall
                 else if (TileAt(x, y) == 0) {
-                    t = Instantiate(wallTile, pos + new Vector3(0, 0, -1), Quaternion.identity);
-                    t.GetComponent<SpriteRenderer>().sprite = bgUpper;
-                    t.tag = "Wall";
+                    Transform t = CreateTile(wallTile, pos + new Vector3(0, 0, -1), bgUpper, wallTiles);
+
                     if (TileAt(x, y - 1) == 1) {
-                        Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, -1.1f), Quaternion.identity);
-                        tf2.GetComponent<SpriteRenderer>().sprite = wallTop;
-                        tf2.parent = bgTiles;
-                        tf2.tag = "Wall";
+                        CreateTile(floorTile, pos + new Vector3(0, 0, -1.1f), wallTop, bgTiles);
                     }
+
                     if (TileAt(x, y + 1) == 1) {
-                        Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, -1.1f), Quaternion.identity);
-                        tf2.GetComponent<SpriteRenderer>().sprite = bgFloorDownWall;
-                        tf2.parent = bgTiles;
-                        tf2.tag = "Wall";
+                        CreateTile(floorTile, pos + new Vector3(0, 0, -1.1f), bgFloorDownWall, bgTiles);
                     }
-                }
-                if (t != null) {
-                    t.parent = wallTiles;
                 }
             }
         }
@@ -96,5 +82,24 @@ public class Generation : MonoBehaviour {
         else {
             return world[x, y];
         }
+    }
+
+    Transform CreateTile(Transform tile, Vector3 position, Sprite sprite, Transform parent)
+    {
+        Transform t = Instantiate(tile, position, Quaternion.identity);
+
+        if (sprite != null)
+        {
+            t.GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+
+        t.tag = "Wall";
+
+        if (parent != null)
+        {
+            t.parent = parent;
+        }
+
+        return t;
     }
 }
