@@ -18,20 +18,47 @@ public class GameFlow : MonoBehaviour
 
     public Transform player;
     public Transform camera;
-    public List<GameObject> rooms;
+    public Dictionary<Vector2Int, GameObject> rooms;
 
     public GameObject roomPrefab;
+    public Vector2Int currentRoomPosition;
 
     void Awake()
     {
         // QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        rooms = new List<GameObject>();
+        rooms = new Dictionary<Vector2Int, GameObject>();
     }
 
     void Start()
 	{
-        GameObject newRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
-        rooms.Add(newRoom);
+        GameObject startRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
+        currentRoomPosition = new Vector2Int(0, 0);
+        rooms.Add(currentRoomPosition, startRoom);
 	}
+
+    public void MoveRoom(int deltaX, int deltaY)
+    {
+        GameObject currentRoom = rooms[currentRoomPosition];
+        currentRoom.SetActive(false);
+
+        Vector2Int newRoomPosition = currentRoomPosition + (new Vector2Int(deltaX, deltaY));
+        GameObject newRoom;
+
+        if (!rooms.ContainsKey(newRoomPosition))
+        {
+            // create new room
+            // TODO: make settings of room a function of the room position
+            newRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
+            rooms.Add(newRoomPosition, newRoom);
+        }
+        else
+        {
+            newRoom = rooms[newRoomPosition];
+        }
+
+        currentRoomPosition = newRoomPosition;
+        newRoom.SetActive(true);
+        player.transform.position = new Vector2(0, 0);
+    }
 }

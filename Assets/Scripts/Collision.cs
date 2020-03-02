@@ -29,6 +29,9 @@ public class Collision : MonoBehaviour
             case "Enemy":
                 AttackedByEnemy(collisionObject);
                 break;
+            case "Exit":
+                MoveToExit(collisionObject);
+                break;
             default:
                 break;
         }
@@ -53,5 +56,13 @@ public class Collision : MonoBehaviour
 		{
             Destroy(gameObject);
 		}
+    }
+
+    private void MoveToExit(GameObject exit)
+    {
+        int deltaX = exit.GetComponent<Exit>().deltaX;
+        int deltaY = exit.GetComponent<Exit>().deltaY;
+
+        GameFlow.Instance.MoveRoom(deltaX, deltaY);
     }
 }
