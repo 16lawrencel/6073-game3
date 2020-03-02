@@ -37,7 +37,7 @@ public class Generation : MonoBehaviour {
         }
         for (int x = 0; x < maxX; x++) {
             for (int y = 0; y < maxY; y++) {
-                Vector3 pos = new Vector3(x * 2 - 22, y * 2 - 12, 2);
+                Vector3 pos = (new Vector3(x * 2 - 22, y * 2 - 12, 2)) + transform.position; // position is relative to our position
                 Transform t = null;
                 Transform tf = Instantiate(floorTile, pos + new Vector3(0, 0, 1), Quaternion.identity);
                 tf.parent = bgTiles;
