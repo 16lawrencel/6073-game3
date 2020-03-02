@@ -6,6 +6,9 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Audio" t="Include">
+          <e p="mvp-song-notes.txt" t="Include" />
+        </e>
         <e p="Materials" t="Include">
           <e p="SpriteShaders" t="Include">
             <e p="CameraDepthNormalsTexture.shader" t="Include" />
@@ -44,6 +47,7 @@
         <e p="Scripts" t="Include">
           <e p="Bullet.cs" t="Include" />
           <e p="Collision.cs" t="Include" />
+          <e p="EnemyAI.cs" t="Include" />
           <e p="Generation.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
           <e p="Health.cs" t="Include" />
