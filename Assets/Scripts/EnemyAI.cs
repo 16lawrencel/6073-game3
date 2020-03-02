@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject player;
-    public float speed = 0.1f;
-    public float THRESHOLD = .01f;
+    internal GameObject player;
+    internal Health health;
 
-    // Start is called before the first frame update
-    void Start()
+    // manually added Start method to be called from subclasses
+    protected void Start()
     {
         player = GameObject.Find("Player");
+        health = gameObject.GetComponent<Health>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // manually added Update method to be called from subclasses
+    protected void Update()
     {
-        if (player != null)
+
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health.Decrement(damage);
+        if (health.GetCurrentHP() <= 0)
         {
-            MoveTo(player.transform.position, speed);
+            Destroy(gameObject);
         }
-    }
-
-    public bool MoveTo(Vector3 position, float speed)
-    {
-        // https://forum.unity.com/threads/make-object-continue-moving-to-destination.134459/
-        float distance = Vector2.Distance(transform.position, position);
-        transform.position = Vector2.Lerp(transform.position, position, speed * Time.deltaTime / distance);
-        return distance > THRESHOLD;
     }
 }

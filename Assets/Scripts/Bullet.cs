@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
         switch (collisionObject.tag)
         {
             case "Enemy":
-                AttackEnemy(collisionObject);
+                collisionObject.GetComponent<EnemyAI>().TakeDamage(1);
                 Destroy(gameObject);
                 break;
             case "Wall":
@@ -46,16 +46,6 @@ public class Bullet : MonoBehaviour
                 break;
             default:
                 break;
-        }
-    }
-
-    private void AttackEnemy(GameObject enemy)
-    {
-        Health enemyHealth = enemy.GetComponent<Health>();
-        enemyHealth.Decrement(1);
-        if (enemyHealth.GetCurrentHP() <= 0)
-        {
-            Destroy(enemy);
         }
     }
 
