@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameFlow : MonoBehaviour
 {
@@ -32,9 +33,8 @@ public class GameFlow : MonoBehaviour
 
     void Start()
 	{
-        GameObject startRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
         currentRoomPosition = new Vector2Int(0, 0);
-        startRoom.name = "Room " + currentRoomPosition;
+        GameObject startRoom = CreateRoom(currentRoomPosition);
         rooms.Add(currentRoomPosition, startRoom);
 	}
 
@@ -50,8 +50,7 @@ public class GameFlow : MonoBehaviour
         {
             // create new room
             // TODO: make settings of room a function of the room position
-            newRoom = Instantiate(roomPrefab, transform.position, Quaternion.identity);
-            newRoom.name = "Room " + newRoomPosition;
+            newRoom = CreateRoom(newRoomPosition);
             rooms.Add(newRoomPosition, newRoom);
         }
         else
@@ -63,5 +62,15 @@ public class GameFlow : MonoBehaviour
         newRoom.SetActive(true);
 
         player.transform.position = new Vector2(-12 * deltaX, -5 * deltaY);
+    }
+
+    private GameObject CreateRoom(Vector2Int roomPosition)
+    {
+        GameObject room = Instantiate(roomPrefab, transform.position, Quaternion.identity);
+        room.name = "Room " + roomPosition;
+
+        room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera.GetComponent<Camera>();
+        room.transform.Find("Canvas").Find("RoomText").GetComponent<Text>().text = room.name;
+        return room;
     }
 }
