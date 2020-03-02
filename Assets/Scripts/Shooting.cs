@@ -10,6 +10,8 @@ public class Shooting : MonoBehaviour
 
     internal Rotation rotator;
     public Transform gun;
+    public float cooldown = 0.5f; // number of seconds of cooldown
+    internal float curCooldown = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +23,23 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        curCooldown = Mathf.Max(0f, curCooldown - Time.deltaTime);
+
         Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
         rotator.FaceToward(mousePosition);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            GameObject bulletObj = Instantiate(bulletPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            Bullet bullet = (Bullet) bulletObj.GetComponent<Bullet>();
-            bullet.transform.position = gameObject.transform.position;
-            bullet.setDirection(mousePosition - gameObject.transform.position);
-            bullet.setSpeed(Globals.BULLET_SPEED);
+            if (curCooldown <= 0f)
+			{
+                curCooldown = cooldown;
+
+                GameObject bulletObj = Instantiate(bulletPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                Bullet bullet = (Bullet)bulletObj.GetComponent<Bullet>();
+                bullet.transform.position = gameObject.transform.position;
+                bullet.setDirection(mousePosition - gameObject.transform.position);
+                bullet.setSpeed(Globals.BULLET_SPEED);
+            }
         }
     }
 }
