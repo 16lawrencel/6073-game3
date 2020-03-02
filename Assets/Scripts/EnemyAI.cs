@@ -17,7 +17,10 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveTo(player.transform.position, speed);
+        if (player != null)
+        {
+            MoveTo(player.transform.position, speed);
+        }
     }
 
     public bool MoveTo(Vector3 position, float speed)

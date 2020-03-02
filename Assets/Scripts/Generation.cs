@@ -41,6 +41,7 @@ public class Generation : MonoBehaviour {
                 Transform t = null;
                 Transform tf = Instantiate(floorTile, pos + new Vector3(0, 0, 1), Quaternion.identity);
                 tf.parent = bgTiles;
+                tf.tag = "Wall";
                 // Open space
                 if (TileAt(x, y) == 1) {
                     tf.GetComponent<SpriteRenderer>().sprite = bgFloor;
@@ -48,31 +49,37 @@ public class Generation : MonoBehaviour {
                         Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, 0.8f), Quaternion.identity);
                         tf2.GetComponent<SpriteRenderer>().sprite = wallRight;
                         tf2.parent = bgTiles;
+                        tf2.tag = "Wall";
                     }
                     if (TileAt(x + 1, y) == 0) {
                         Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, 0.8f), Quaternion.identity);
                         tf2.GetComponent<SpriteRenderer>().sprite = wallLeft;
                         tf2.parent = bgTiles;
+                        tf2.tag = "Wall";
                     }
                     if (TileAt(x, y + 1) == 0) {
                         Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, 0.9f), Quaternion.identity);
                         tf2.GetComponent<SpriteRenderer>().sprite = bgFloorUpWall;
                         tf2.parent = bgTiles;
+                        tf2.tag = "Wall";
                     }
                 }
                 // Wall
                 else if (TileAt(x, y) == 0) {
                     t = Instantiate(wallTile, pos + new Vector3(0, 0, -1), Quaternion.identity);
                     t.GetComponent<SpriteRenderer>().sprite = bgUpper;
+                    t.tag = "Wall";
                     if (TileAt(x, y - 1) == 1) {
                         Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, -1.1f), Quaternion.identity);
                         tf2.GetComponent<SpriteRenderer>().sprite = wallTop;
                         tf2.parent = bgTiles;
+                        tf2.tag = "Wall";
                     }
                     if (TileAt(x, y + 1) == 1) {
                         Transform tf2 = Instantiate(floorTile, pos + new Vector3(0, 0, -1.1f), Quaternion.identity);
                         tf2.GetComponent<SpriteRenderer>().sprite = bgFloorDownWall;
                         tf2.parent = bgTiles;
+                        tf2.tag = "Wall";
                     }
                 }
                 if (t != null) {
