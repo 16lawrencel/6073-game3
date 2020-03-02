@@ -5,6 +5,7 @@ using UnityEngine;
 public class Generation : MonoBehaviour {
     public Transform wallTile;
     public Transform floorTile;
+    public Transform exitTile;
 
     public Sprite wallTop;
     public Sprite wallLeft;
@@ -23,6 +24,7 @@ public class Generation : MonoBehaviour {
 
     public Transform bgTiles;
     public Transform wallTiles;
+    public Transform exitTiles;
 
 
     void Start() {
@@ -55,14 +57,10 @@ public class Generation : MonoBehaviour {
                     }
 
                     if (TileAt(x, y + 1) == 0) {
-                        Transform t =  CreateTile(floorTile, pos + new Vector3(0, 0, 0.9f), bgFloorUpWall, bgTiles);
-
-                        if (x == (int)(maxX / 2) || x == (int)(maxX / 2) - 1)
-                        {
-                            Debug.Log(t.transform.position);
-                            t.tag = "Exit";
-                            t.gameObject.name = "Exit";
-                            t.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
+                        if (x == (int)(maxX / 2) || x == (int)(maxX / 2) - 1) {
+                            CreateExit(exitTile, pos + new Vector3(0, 0, 0.9f), exitTiles, 0, 1);
+                        } else {
+                            CreateTile(floorTile, pos + new Vector3(0, 0, 0.9f), bgFloorUpWall, bgTiles);
                         }
                     }
                 }
@@ -102,6 +100,22 @@ public class Generation : MonoBehaviour {
         }
 
         t.tag = "Wall";
+
+        if (parent != null)
+        {
+            t.parent = parent;
+        }
+
+        return t;
+    }
+
+    Transform CreateExit(Transform tile, Vector3 position, Transform parent, int deltaX, int deltaY)
+    {
+        Transform t = Instantiate(tile, position, Quaternion.identity);
+        t.tag = "Exit";
+
+        t.GetComponent<Exit>().deltaX = deltaX;
+        t.GetComponent<Exit>().deltaY = deltaY;
 
         if (parent != null)
         {
