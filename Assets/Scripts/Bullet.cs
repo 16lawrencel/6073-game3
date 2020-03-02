@@ -21,7 +21,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
-        
     }
 
     void OnBecameInvisible()
@@ -32,6 +31,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Bullet collided with " + collision.gameObject);
+        Debug.Log(collision.gameObject.tag);
 
         GameObject collisionObject = collision.gameObject;
 
@@ -41,19 +41,12 @@ public class Bullet : MonoBehaviour
                 AttackEnemy(collisionObject);
                 Destroy(gameObject);
                 break;
+            case "Wall":
+                Destroy(gameObject);
+                break;
             default:
                 break;
         }
-
-        /*
-        EnemyAI enemyAI = (EnemyAI) collision.gameObject.GetComponent<EnemyAI>();
-        if (enemyAI != null)
-        {
-            // call enemy health decrement
-            Destroy(gameObject);
-            Destroy(enemyAI.gameObject);
-        }
-        */
     }
 
     private void AttackEnemy(GameObject enemy)
