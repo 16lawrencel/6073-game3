@@ -5,17 +5,22 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     Health health;
-    internal Transform bar;
+    internal GameObject bar;
+    internal GameObject barSprite;
+    internal GameObject background;
 
     void Awake()
     {
         health = GetComponentInParent<Health>();
+        bar = transform.Find("Bar").gameObject;
+        barSprite = bar.transform.Find("BarSprite").gameObject;
+        background = transform.Find("Background").gameObject;
     }
 
     void Start()
     {
-        bar = transform.Find("Bar");
-        bar.localScale = new Vector2(1f, 1f);
+
+        bar.transform.localScale = new Vector2(1f, 1f);
     }
 
     void Update()
@@ -23,10 +28,11 @@ public class HealthBar : MonoBehaviour
         float percentage = health.Percentage();
         bool enabled = (percentage != 1f);
 
-        transform.Find("Background").GetComponent<SpriteRenderer>().enabled = enabled;
-        transform.Find("Bar").Find("BarSprite").GetComponent<SpriteRenderer>().enabled = enabled;
+        Debug.Log(percentage);
+        background.GetComponent<SpriteRenderer>().enabled = enabled;
+        barSprite.GetComponent<SpriteRenderer>().enabled = enabled;
 
-        bar.localScale = new Vector2(percentage, 1f);
+        bar.transform.localScale = new Vector2(percentage, 1f);
     }
 
     // used by InfoMenu to hook up healthbar to original unit's health
