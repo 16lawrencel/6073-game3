@@ -17,8 +17,15 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    public Transform player;
-    public Transform camera;
+    private int ROOM_WIDTH = 800;
+    private int ROOM_HEIGHT = 400;
+    private int ROOM_GAP = 100;
+
+    public GameObject player;
+    public Camera camera;
+    public GameObject minimapCamera;
+    public GameObject minimapRooms; // namespace to store minimap rooms / textures
+    public Sprite pixel;
     public Dictionary<Vector2Int, GameObject> rooms;
 
     public GameObject roomPrefab;
@@ -66,12 +73,36 @@ public class GameFlow : MonoBehaviour
 
     private GameObject CreateRoom(Vector2Int roomPosition)
     {
+        CreateRoomTexture(roomPosition);
+
         GameObject room = Instantiate(roomPrefab, transform.position, Quaternion.identity);
         room.name = "Room " + roomPosition;
 
-        room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera.GetComponent<Camera>();
+        room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera;
         room.transform.Find("Canvas").Find("RoomText").GetComponent<Text>().text = room.name;
         return room;
+    }
+
+    private void CreateRoomTexture(Vector2Int roomPosition)
+    {
+        GameObject obj = new GameObject("room");
+        obj.transform.parent = minimapRooms.transform;
+        Vector2 centerPixels = GetRoomCenter(roomPosition);
+        Vector2 centerPixelsAdjusted = new Vector2(centerPixels.x / 5 + camera.pixelWidth / 2, centerPixels.y / 5 + camera.pixelHeight / 2); // TODO: make this less hacky
+        Vector2 centerWorld = camera.ScreenToWorldPoint(centerPixelsAdjusted);
+        obj.transform.localPosition = centerWorld;
+        obj.layer = Globals.MINIMAP_LAYER;
+
+        SpriteRenderer renderer = obj.AddComponent<SpriteRenderer>();
+        renderer.sprite = pixel;
+        renderer.transform.localScale = new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
+    }
+
+    // returns the center of the room in minimap pixel coordinates given its
+    // position in integer coordinates
+    private Vector2 GetRoomCenter(Vector2Int roomPosition)
+    {
+        return new Vector3(roomPosition.x * (ROOM_WIDTH + ROOM_GAP), roomPosition.y * (ROOM_HEIGHT + ROOM_GAP), -10);
     }
 
     public GameObject GetCurrentRoom()
