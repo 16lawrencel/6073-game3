@@ -17,6 +17,8 @@ public class GameFlow : MonoBehaviour
         }
     }
 
+    public string seed;
+
     private int ROOM_WIDTH = 800;
     private int ROOM_HEIGHT = 400;
     private int ROOM_GAP = 100;
@@ -64,8 +66,6 @@ public class GameFlow : MonoBehaviour
 
         if (!rooms.ContainsKey(newRoomPosition))
         {
-            // create new room
-            // TODO: make settings of room a function of the room position
             newRoom = CreateRoom(newRoomPosition);
         }
         else
@@ -107,6 +107,10 @@ public class GameFlow : MonoBehaviour
 
         room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera;
         room.transform.Find("Canvas").Find("RoomText").GetComponent<Text>().text = room.name;
+
+        room.GetComponent<Room>().seed = seed;
+        room.GetComponent<Room>().roomX = roomPosition.x;
+        room.GetComponent<Room>().roomY = roomPosition.y;
 
         rooms.Add(roomPosition, room);
 

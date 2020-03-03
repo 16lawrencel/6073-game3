@@ -582,6 +582,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 8f84cb366a7f04a23b11d7fdb2088941,
         type: 3}
+    - target: {fileID: 5800178653352284006, guid: aa60e5e4aff714cf3b3f7c8b5f37f605,
+        type: 3}
+      propertyPath: seed
+      value: YEET GAMERS
+      objectReference: {fileID: 0}
     - target: {fileID: 5800178653352284007, guid: aa60e5e4aff714cf3b3f7c8b5f37f605,
         type: 3}
       propertyPath: m_LocalPosition.x
