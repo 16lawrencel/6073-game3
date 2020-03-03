@@ -55,12 +55,9 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "Wall":
-                Transform o = Instantiate(onDestroy,
-                    transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), 0),
-                    Quaternion.identity);
-                o.localScale = new Vector3(1 + Random.value, 1 + Random.value, 0);
-                o.eulerAngles = new Vector3(0, 0, Random.value * 360);
-                Camera.main.gameObject.transform.parent.GetComponent<CameraShake>().Shake(1);
+                SpawnOnDestroy();
+
+                Camera.main.GetComponent<CameraShake>().Shake(1);
                 Destroy(gameObject);
                 break;
             default:
@@ -76,6 +73,18 @@ public class Bullet : MonoBehaviour
         {
             Destroy(enemy);
         }
+    }
+
+    private void SpawnOnDestroy()
+    {
+        Transform splat = Instantiate(onDestroy,
+transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), 0),
+Quaternion.identity);
+        splat.localScale = new Vector3(1 + Random.value, 1 + Random.value, 0);
+        splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
+        // make splat the child of current room
+        GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
+        splat.transform.parent = currentRoom.transform.Find("Other");
     }
 
     public void setDirection(Vector3 direction)

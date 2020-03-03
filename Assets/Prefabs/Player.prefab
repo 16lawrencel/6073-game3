@@ -294,9 +294,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb06b31c56754879a05d855798b3e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7667353194472809882, guid: a2b883b28de4c4ba58fd1811851110c3,
+  bulletPrefab: {fileID: 7667353194472809882, guid: bd9e4042857fe4149ae567fac73877da,
     type: 3}
   gun: {fileID: 1870979}
+  cooldown: 0.5
 --- !u!1 &4210349301963914989
 GameObject:
   m_ObjectHideFlags: 0

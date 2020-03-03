@@ -14,11 +14,11 @@ public class CameraShake : MonoBehaviour
 
         if (shake > 0) {
             transform.localPosition = Random.insideUnitSphere * shake;
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -100);
             shake -= Time.unscaledDeltaTime * 20;
         }
         else {
-            transform.localPosition = new Vector3(0, 0, 0);
+            transform.localPosition = new Vector3(0, 0, -100);
             shake = 0.0f;
         }
     }
