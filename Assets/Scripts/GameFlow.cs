@@ -29,8 +29,12 @@ public class GameFlow : MonoBehaviour
     private GameObject namespaceRooms;
     private GameObject namespaceMinimapRooms;
 
+    private Color unoccupiedColor = new Color(255, 255, 255);
+    private Color occupiedColor = new Color(0, 0, 0);
+
     public Sprite pixel;
     public Dictionary<Vector2Int, GameObject> rooms;
+    public Dictionary<Vector2Int, GameObject> minimapRooms;
 
     public GameObject roomPrefab;
     public Vector2Int currentRoomPosition;
@@ -40,6 +44,7 @@ public class GameFlow : MonoBehaviour
         // QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         rooms = new Dictionary<Vector2Int, GameObject>();
+        minimapRooms = new Dictionary<Vector2Int, GameObject>();
 
         namespaceRooms = new GameObject("Rooms");
         namespaceMinimapRooms = new GameObject("Minimap Rooms");
@@ -48,15 +53,12 @@ public class GameFlow : MonoBehaviour
     void Start()
 	{
         currentRoomPosition = new Vector2Int(0, 0);
-        GameObject startRoom = CreateRoom(currentRoomPosition);
-        rooms.Add(currentRoomPosition, startRoom);
+        CreateRoom(currentRoomPosition);
+        SetNewRoom(currentRoomPosition);
 	}
 
     public void MoveRoom(int deltaX, int deltaY)
     {
-        GameObject currentRoom = rooms[currentRoomPosition];
-        currentRoom.SetActive(false);
-
         Vector2Int newRoomPosition = currentRoomPosition + (new Vector2Int(deltaX, deltaY));
         GameObject newRoom;
 
@@ -65,22 +67,36 @@ public class GameFlow : MonoBehaviour
             // create new room
             // TODO: make settings of room a function of the room position
             newRoom = CreateRoom(newRoomPosition);
-            rooms.Add(newRoomPosition, newRoom);
         }
         else
         {
             newRoom = rooms[newRoomPosition];
         }
 
-        currentRoomPosition = newRoomPosition;
-        newRoom.SetActive(true);
+        SetNewRoom(newRoomPosition);
 
         player.transform.position = new Vector2(-12 * deltaX, -5 * deltaY);
     }
 
+    private void SetNewRoom(Vector2Int newRoomPosition)
+    {
+        GameObject currentRoom = rooms[currentRoomPosition];
+        GameObject currentMinimapRoom = minimapRooms[currentRoomPosition];
+        currentRoom.SetActive(false);
+        currentMinimapRoom.GetComponent<SpriteRenderer>().color = unoccupiedColor;
+
+        GameObject newRoom = rooms[newRoomPosition];
+        GameObject newMinimapRoom = minimapRooms[newRoomPosition];
+        newRoom.SetActive(true);
+        newMinimapRoom.GetComponent<SpriteRenderer>().color = occupiedColor;
+
+        currentRoomPosition = newRoomPosition;
+    }
+
+
     private GameObject CreateRoom(Vector2Int roomPosition)
     {
-        CreateRoomTexture(roomPosition);
+        CreateMinimapRoom(roomPosition);
 
         GameObject room = Instantiate(roomPrefab, transform.position, Quaternion.identity);
         room.name = "Room " + roomPosition;
@@ -88,10 +104,13 @@ public class GameFlow : MonoBehaviour
 
         room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera;
         room.transform.Find("Canvas").Find("RoomText").GetComponent<Text>().text = room.name;
+
+        rooms.Add(roomPosition, room);
+
         return room;
     }
 
-    private void CreateRoomTexture(Vector2Int roomPosition)
+    private void CreateMinimapRoom(Vector2Int roomPosition)
     {
         GameObject minimapRoom = new GameObject("Minimap Room " + roomPosition);
         minimapRoom.transform.parent = namespaceMinimapRooms.transform;
@@ -104,6 +123,8 @@ public class GameFlow : MonoBehaviour
         SpriteRenderer renderer = minimapRoom.AddComponent<SpriteRenderer>();
         renderer.sprite = pixel;
         renderer.transform.localScale = new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
+
+        minimapRooms.Add(roomPosition, minimapRoom);
     }
 
     // returns the center of the room in minimap pixel coordinates given its
