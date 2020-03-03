@@ -24,7 +24,11 @@ public class GameFlow : MonoBehaviour
     public GameObject player;
     public Camera camera;
     public GameObject minimapCamera;
-    public GameObject minimapRooms; // namespace to store minimap rooms / textures
+
+    // namespaces to organize rooms / minimaps
+    private GameObject namespaceRooms;
+    private GameObject namespaceMinimapRooms;
+
     public Sprite pixel;
     public Dictionary<Vector2Int, GameObject> rooms;
 
@@ -36,6 +40,9 @@ public class GameFlow : MonoBehaviour
         // QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         rooms = new Dictionary<Vector2Int, GameObject>();
+
+        namespaceRooms = new GameObject("Rooms");
+        namespaceMinimapRooms = new GameObject("Minimap Rooms");
     }
 
     void Start()
@@ -77,6 +84,7 @@ public class GameFlow : MonoBehaviour
 
         GameObject room = Instantiate(roomPrefab, transform.position, Quaternion.identity);
         room.name = "Room " + roomPosition;
+        room.transform.parent = namespaceRooms.transform;
 
         room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera;
         room.transform.Find("Canvas").Find("RoomText").GetComponent<Text>().text = room.name;
@@ -85,15 +93,15 @@ public class GameFlow : MonoBehaviour
 
     private void CreateRoomTexture(Vector2Int roomPosition)
     {
-        GameObject obj = new GameObject("room");
-        obj.transform.parent = minimapRooms.transform;
+        GameObject minimapRoom = new GameObject("Minimap Room " + roomPosition);
+        minimapRoom.transform.parent = namespaceMinimapRooms.transform;
         Vector2 centerPixels = GetRoomCenter(roomPosition);
         Vector2 centerPixelsAdjusted = new Vector2(centerPixels.x / 5 + camera.pixelWidth / 2, centerPixels.y / 5 + camera.pixelHeight / 2); // TODO: make this less hacky
         Vector2 centerWorld = camera.ScreenToWorldPoint(centerPixelsAdjusted);
-        obj.transform.localPosition = centerWorld;
-        obj.layer = Globals.MINIMAP_LAYER;
+        minimapRoom.transform.localPosition = centerWorld;
+        minimapRoom.layer = Globals.MINIMAP_LAYER;
 
-        SpriteRenderer renderer = obj.AddComponent<SpriteRenderer>();
+        SpriteRenderer renderer = minimapRoom.AddComponent<SpriteRenderer>();
         renderer.sprite = pixel;
         renderer.transform.localScale = new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
     }
