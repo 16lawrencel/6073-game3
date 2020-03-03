@@ -145,4 +145,10 @@ public class GameFlow : MonoBehaviour
     {
         return rooms[currentRoomPosition];
     }
+
+    // respawn player back to starting room
+    public void RespawnPlayer()
+    {
+        SetNewRoom(new Vector2Int(0, 0));
+    }
 }

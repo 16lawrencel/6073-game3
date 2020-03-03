@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collision : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
     internal Rigidbody2D rigidbody;
     internal Movement movement;
@@ -54,7 +54,7 @@ public class Collision : MonoBehaviour
         health.Decrement(1);
         if (health.GetCurrentHP() <= 0)
 		{
-            Destroy(gameObject);
+            PlayerDeath();
 		}
     }
 
@@ -64,5 +64,13 @@ public class Collision : MonoBehaviour
         int deltaY = exit.GetComponent<Exit>().deltaY;
 
         GameFlow.Instance.MoveRoom(deltaX, deltaY);
+    }
+
+    // on death, heal back to max and respawn back to starting point
+    private void PlayerDeath()
+    {
+        health.SetCurrentHP(health.maxHP);
+        transform.position = new Vector2(0, 0);
+        GameFlow.Instance.RespawnPlayer();
     }
 }
