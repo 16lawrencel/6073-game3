@@ -22,6 +22,7 @@ public class Room : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemyPrefab, new Vector2(13 * pos.x, 5 * pos.y), Quaternion.identity);
             enemy.transform.parent = transform;
+            enemy.tag = "Enemy"; // TODO: WHY IS THIS NECESSARY (enemy spawns initially as a powerup for some reason)
         }
 
         foreach (Vector2Int pos in powerupPos)
