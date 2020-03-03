@@ -23,7 +23,7 @@ public class GameFlow : MonoBehaviour
 
     public GameObject player;
     public Camera camera;
-    public GameObject minimapCamera;
+    public Camera minimapCamera;
 
     // namespaces to organize rooms / minimaps
     private GameObject namespaceRooms;
@@ -89,6 +89,9 @@ public class GameFlow : MonoBehaviour
         GameObject newMinimapRoom = minimapRooms[newRoomPosition];
         newRoom.SetActive(true);
         newMinimapRoom.GetComponent<SpriteRenderer>().color = occupiedColor;
+
+        Vector3 pos = newMinimapRoom.transform.position;
+        minimapCamera.gameObject.transform.position = new Vector3(pos.x, pos.y, -100);
 
         currentRoomPosition = newRoomPosition;
     }

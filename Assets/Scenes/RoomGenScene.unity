@@ -652,7 +652,7 @@ PrefabInstance:
         type: 3}
       propertyPath: minimapCamera
       value: 
-      objectReference: {fileID: 1720597509}
+      objectReference: {fileID: 1720597512}
     - target: {fileID: 5800178653352284006, guid: aa60e5e4aff714cf3b3f7c8b5f37f605,
         type: 3}
       propertyPath: minimapRooms
