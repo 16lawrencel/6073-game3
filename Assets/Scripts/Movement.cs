@@ -5,19 +5,22 @@ using static Globals;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 15f;
+    //public float speed = 15f;
     internal Rigidbody2D rigidbody;
     internal int stuncounter;
+    internal GameFlow gameflow;
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         stuncounter = 0;
+        gameflow = GetComponent<GameFlow>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        float speed = GameFlow.Instance.playerSpeed;
 
         if (stuncounter > 0)
 		{

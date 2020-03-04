@@ -40,9 +40,11 @@ public class PlayerCollision : MonoBehaviour
     private void CollectPowerup(GameObject powerup)
 	{
         // play sound effect
-        SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Powerup"]);
-
-        GetComponent<Movement>().speed *= 2;
+        //SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Powerup"]);
+        if (GameFlow.Instance.playerSpeed < 50f)
+        {
+            GameFlow.Instance.playerSpeed *= 2;
+        }
         Destroy(powerup);
     }
 
