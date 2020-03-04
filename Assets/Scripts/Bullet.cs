@@ -53,12 +53,15 @@ public class Bullet : MonoBehaviour
             case "Enemy":
                 AttackEnemy(collisionObject);
                 Destroy(gameObject);
+                SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.6f);
                 break;
             case "Wall":
                 SpawnOnDestroy();
 
                 Camera.main.GetComponent<CameraShake>().Shake(1);
                 Destroy(gameObject);
+                SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.8f);
+
                 break;
             default:
                 break;

@@ -29,6 +29,7 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
+
             if (curCooldown <= 0f)
 			{
                 curCooldown = cooldown;
@@ -36,8 +37,27 @@ public class Shooting : MonoBehaviour
                 Bullet bullet = (Bullet) bulletObj.GetComponent<Bullet>();
                 bullet.setDirection(mousePosition - gameObject.transform.position);
                 bullet.setSpeed(Globals.BULLET_SPEED);
+
+                //bubble sound
+                SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Shoot_Bubble"], 0.5f);
             }
         }
+
+        //rev up blender when shoot clicked
+        if (Input.GetMouseButtonDown(0))
+        {
+            SoundMixer.gun.Stop();
+            SoundMixer.gun.PlayOneShot(SoundMixer.sounds["Rev_Up"]);
+            SoundMixer.gun.clip = SoundMixer.sounds["Rev"];
+            SoundMixer.gun.PlayDelayed(0.5f);
+        }
+        //rev down
+        else if (Input.GetMouseButtonUp(0))
+        {
+            SoundMixer.gun.Stop();
+            SoundMixer.gun.PlayOneShot(SoundMixer.sounds["Rev_Down"]);
+        }
+
     }
     
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z) {

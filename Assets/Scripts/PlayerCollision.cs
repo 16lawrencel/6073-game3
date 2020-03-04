@@ -39,6 +39,9 @@ public class PlayerCollision : MonoBehaviour
 
     private void CollectPowerup(GameObject powerup)
 	{
+        // play sound effect
+        SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Powerup"]);
+
         GetComponent<Movement>().speed *= 2;
         Destroy(powerup);
     }
@@ -56,6 +59,9 @@ public class PlayerCollision : MonoBehaviour
 		{
             PlayerDeath();
 		}
+
+        // play hurt sound 
+        SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Player_Damage"]);
     }
 
     private void MoveToExit(GameObject exit)
