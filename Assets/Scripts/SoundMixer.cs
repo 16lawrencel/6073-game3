@@ -32,6 +32,8 @@ public class SoundMixer : MonoBehaviour
         gun = this.gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
 
         bgm.loop = true;
+        bgm.clip = track2;
+        bgm.Play();
         gun.volume = 0.2f;
         gun.loop = true;
 
