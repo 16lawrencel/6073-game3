@@ -52,13 +52,12 @@ public class Bullet : MonoBehaviour
         switch (collisionObject.tag) {
             case "Enemy":
                 AttackEnemy(collisionObject);
+                Splat();
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.6f);
                 break;
             case "Wall":
-                SpawnOnDestroy();
-
-                Camera.main.GetComponent<CameraShake>().Shake(1);
+                Splat();
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.8f);
 
@@ -76,6 +75,12 @@ public class Bullet : MonoBehaviour
         {
             Destroy(enemy);
         }
+    }
+
+    private void Splat()
+    {
+        SpawnOnDestroy();
+        Camera.main.GetComponent<CameraShake>().Shake(1);
     }
 
     private void SpawnOnDestroy()
