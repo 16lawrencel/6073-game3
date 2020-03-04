@@ -47,9 +47,10 @@
         <e p="Scripts" t="Include">
           <e p="Bullet.cs" t="Include" />
           <e p="CameraShake.cs" t="Include" />
-          <e p="Collision.cs" t="Include" />
           <e p="Destroyer.cs" t="Include" />
           <e p="EnemyAI.cs" t="Include" />
+          <e p="Exit.cs" t="Include" />
+          <e p="GameFlow.cs" t="Include" />
           <e p="Generation.cs" t="Include" />
           <e p="GenerationBlock.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
@@ -57,6 +58,9 @@
           <e p="HealthBar.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
           <e p="PlayerAnimation.cs" t="Include" />
+          <e p="PlayerCollision.cs" t="Include" />
+          <e p="Room.cs" t="Include" />
+          <e p="RoomHash.cs" t="Include" />
           <e p="Rotation.cs" t="Include" />
           <e p="Shooting.cs" t="Include" />
           <e p="SoundMixer.cs" t="Include" />

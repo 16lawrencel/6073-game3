@@ -77,7 +77,7 @@ public class GameFlow : MonoBehaviour
 
         SetNewRoom(newRoomPosition);
 
-        player.transform.position = new Vector2(-12 * deltaX, -5 * deltaY);
+        player.transform.position = new Vector2(-8 * deltaX - 5, -8 * deltaY + 5);
     }
 
     private void SetNewRoom(Vector2Int newRoomPosition)

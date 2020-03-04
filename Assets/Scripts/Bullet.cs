@@ -80,7 +80,7 @@ public class Bullet : MonoBehaviour
     private void Splat()
     {
         SpawnOnDestroy();
-        Camera.main.GetComponent<CameraShake>().Shake(1);
+        Camera.main.transform.parent.GetComponent<CameraShake>().Shake(1);
     }
 
     private void SpawnOnDestroy()
