@@ -29,6 +29,11 @@ public class Health : MonoBehaviour
         return currentHP;
     }
 
+    public void SetCurrentHP(int newHP)
+    {
+        currentHP = newHP;
+    }
+
     public float Percentage()
     {
         return (float)(currentHP) / maxHP;

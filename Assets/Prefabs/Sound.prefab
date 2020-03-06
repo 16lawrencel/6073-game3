@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1571459485344921817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571459485344921815}
+  - component: {fileID: 1571459485344921812}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1571459485344921815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571459485344921817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571459485344921812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571459485344921817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64469526400e224d851518550925772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: {fileID: 8300000, guid: c0a40d082ef101946a6df7717a9e97e5, type: 3}
+  track1: {fileID: 8300000, guid: a5fb95a661fef274c87c6ba9d007b017, type: 3}
+  track2: {fileID: 8300000, guid: dce2d105e79c21c4693e6b1d89a9d273, type: 3}
+  Player_Damage: {fileID: 8300000, guid: c0a40d082ef101946a6df7717a9e97e5, type: 3}
+  Shoot_Bubble: {fileID: 8300000, guid: c1c07b58e752af44ab4e98f4ab4da914, type: 3}
+  Rev_Up: {fileID: 8300000, guid: 70e55b6c0caf4b142820b42f1e3640f8, type: 3}
+  Rev_Down: {fileID: 8300000, guid: bd3dc06778395dc4582ff707a46211ea, type: 3}
+  Rev: {fileID: 8300000, guid: c9a2301708dfc3d4a991aac4252db87c, type: 3}
+  Powerup: {fileID: 8300000, guid: 67d15aa723331a34ba40348ba50cc293, type: 3}
+  Splash: {fileID: 8300000, guid: 5f8552bca0f449f49a46c2682ffdcc2a, type: 3}

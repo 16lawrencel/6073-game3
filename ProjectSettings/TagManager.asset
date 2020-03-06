@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Sprite
   - Powerup
-  - Enemy
   - Wall
+  - Enemy
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Wall
+  - Minimap
   - 
   - 
   - 

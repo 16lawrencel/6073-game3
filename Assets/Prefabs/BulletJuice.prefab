@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6489880545725969639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.001}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 7667353194472809877}
@@ -67,7 +67,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 40629fdf932664076950646bd13f26ca, type: 3}
   m_Color: {r: 1, g: 0.6839622, b: 0.97345865, a: 1}
   m_FlipX: 0
@@ -89,6 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7667353194472809877}
   - component: {fileID: 7452514784568208736}
+  - component: {fileID: 58506755254116664}
+  - component: {fileID: 4618868333419425923}
   m_Layer: 0
   m_Name: BulletJuice
   m_TagString: Untagged
@@ -124,6 +126,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efaa9239f2ec4148b4ced27818c88df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDestroy: {fileID: 7667353194472809877, guid: b1a776cb0228b4e5fb505661918ee7b7,
+    type: 3}
+--- !u!58 &58506755254116664
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667353194472809882}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &4618868333419425923
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667353194472809882}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7667353194663957557
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +232,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 40629fdf932664076950646bd13f26ca, type: 3}
   m_Color: {r: 0.9275606, g: 0.3915094, b: 1, a: 0.57254905}
   m_FlipX: 0

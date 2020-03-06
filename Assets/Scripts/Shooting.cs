@@ -23,23 +23,48 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 mousePosition = GetWorldPositionOnPlane(Input.mousePosition, 0);
         curCooldown = Mathf.Max(0f, curCooldown - Time.deltaTime);
-
-        Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
         rotator.FaceToward(mousePosition);
 
         if (Input.GetMouseButton(0))
         {
+
             if (curCooldown <= 0f)
 			{
                 curCooldown = cooldown;
-
-                GameObject bulletObj = Instantiate(bulletPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Bullet bullet = (Bullet)bulletObj.GetComponent<Bullet>();
-                bullet.transform.position = gameObject.transform.position;
+                GameObject bulletObj = Instantiate(bulletPrefab, gameObject.transform.position + new Vector3(0, 0, 0.01f), Quaternion.identity);
+                Bullet bullet = (Bullet) bulletObj.GetComponent<Bullet>();
                 bullet.setDirection(mousePosition - gameObject.transform.position);
                 bullet.setSpeed(Globals.BULLET_SPEED);
+
+                //bubble sound
+                SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Shoot_Bubble"], 0.5f);
             }
         }
+
+        //rev up blender when shoot clicked
+        if (Input.GetMouseButtonDown(0))
+        {
+            SoundMixer.gun.Stop();
+            SoundMixer.gun.PlayOneShot(SoundMixer.sounds["Rev_Up"]);
+            SoundMixer.gun.clip = SoundMixer.sounds["Rev"];
+            SoundMixer.gun.PlayDelayed(0.5f);
+        }
+        //rev down
+        else if (Input.GetMouseButtonUp(0))
+        {
+            SoundMixer.gun.Stop();
+            SoundMixer.gun.PlayOneShot(SoundMixer.sounds["Rev_Down"]);
+        }
+
+    }
+    
+    public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z) {
+        Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+        Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, z));
+        float distance;
+        xy.Raycast(ray, out distance);
+        return ray.GetPoint(distance);
     }
 }

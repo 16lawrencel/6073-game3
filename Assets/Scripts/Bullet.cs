@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     internal BoxCollider2D boxCollider;
     Camera camera;
 
+    public Transform onDestroy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,44 @@ public class Bullet : MonoBehaviour
         // Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+//    private void OnCollisionEnter2D(Collision2D collision)
+//    {
+//        Debug.Log("Bullet collided with " + collision.gameObject);
+//
+//        EnemyAI enemyAI = (EnemyAI) collision.gameObject.GetComponent<EnemyAI>();
+//        if (enemyAI != null)
+//        {
+//            // call enemy health decrement
+//            Destroy(gameObject);
+//            Destroy(enemyAI.gameObject);
+//        }
+//    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Debug.Log("Bullet collided with " + collision.gameObject);
+        Debug.Log(collision.gameObject.tag);
+
+        GameObject collisionObject = collision.gameObject;
+
+        switch (collisionObject.tag) {
+            case "Enemy":
+                AttackEnemy(collisionObject);
+                Splat();
+                Destroy(gameObject);
+                SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.6f);
+                break;
+            case "Wall":
+                Splat();
+                Destroy(gameObject);
+                SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.8f);
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void AttackEnemy(GameObject enemy)
     {
         Debug.Log("Bullet collided with " + collision.gameObject);
         Debug.Log(collision.gameObject.tag);
@@ -47,6 +86,24 @@ public class Bullet : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void Splat()
+    {
+        SpawnOnDestroy();
+        Camera.main.transform.parent.GetComponent<CameraShake>().Shake(1);
+    }
+
+    private void SpawnOnDestroy()
+    {
+        Transform splat = Instantiate(onDestroy, 
+            transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), 0),
+            Quaternion.identity);
+        splat.localScale = new Vector3(1 + Random.value, 1 + Random.value, 0);
+        splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
+        // make splat the child of current room
+        GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
+        splat.transform.parent = currentRoom.transform.Find("Other");
     }
 
     public void setDirection(Vector3 direction)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collision : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
     internal Rigidbody2D rigidbody;
     internal Movement movement;
@@ -29,6 +29,9 @@ public class Collision : MonoBehaviour
             case "Enemy":
                 AttackedByEnemy(collisionObject);
                 break;
+            case "Exit":
+                MoveToExit(collisionObject);
+                break;
             default:
                 break;
         }
@@ -36,7 +39,12 @@ public class Collision : MonoBehaviour
 
     private void CollectPowerup(GameObject powerup)
 	{
-        GetComponent<Movement>().speed *= 2;
+        // play sound effect
+        //SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Powerup"]);
+        if (GameFlow.Instance.playerSpeed < 50f)
+        {
+            GameFlow.Instance.playerSpeed *= 2;
+        }
         Destroy(powerup);
     }
 
@@ -51,7 +59,26 @@ public class Collision : MonoBehaviour
         health.Decrement(1);
         if (health.GetCurrentHP() <= 0)
 		{
-            Destroy(gameObject);
+            PlayerDeath();
 		}
+
+        // play hurt sound 
+        SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Player_Damage"]);
+    }
+
+    private void MoveToExit(GameObject exit)
+    {
+        int deltaX = exit.GetComponent<Exit>().deltaX;
+        int deltaY = exit.GetComponent<Exit>().deltaY;
+
+        GameFlow.Instance.MoveRoom(deltaX, deltaY);
+    }
+
+    // on death, heal back to max and respawn back to starting point
+    private void PlayerDeath()
+    {
+        health.SetCurrentHP(health.maxHP);
+        transform.position = new Vector2(0, 0);
+        GameFlow.Instance.RespawnPlayer();
     }
 }
