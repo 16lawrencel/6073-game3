@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
 
         switch (collisionObject.tag) {
             case "Enemy":
-                AttackEnemy(collisionObject);
+                collisionObject.GetComponent<EnemyAI>().TakeDamage(1);
                 Splat();
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.6f);
@@ -61,27 +61,6 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.8f);
 
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void AttackEnemy(GameObject enemy)
-    {
-        Debug.Log("Bullet collided with " + collision.gameObject);
-        Debug.Log(collision.gameObject.tag);
-
-        GameObject collisionObject = collision.gameObject;
-
-        switch (collisionObject.tag)
-        {
-            case "Enemy":
-                collisionObject.GetComponent<EnemyAI>().TakeDamage(1);
-                Destroy(gameObject);
-                break;
-            case "Wall":
-                Destroy(gameObject);
                 break;
             default:
                 break;
