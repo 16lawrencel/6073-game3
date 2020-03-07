@@ -29,7 +29,6 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-
             if (curCooldown <= 0f)
 			{
                 curCooldown = cooldown;

@@ -16,7 +16,6 @@ public class Bullet : MonoBehaviour
     {
         camera = Camera.main;
         boxCollider = GetComponent<BoxCollider2D>();
-        // boxCollider.size = transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
     }
 
     // Update is called once per frame
@@ -29,19 +28,6 @@ public class Bullet : MonoBehaviour
     {
         // Destroy(gameObject);
     }
-
-//    private void OnCollisionEnter2D(Collision2D collision)
-//    {
-//        Debug.Log("Bullet collided with " + collision.gameObject);
-//
-//        EnemyAI enemyAI = (EnemyAI) collision.gameObject.GetComponent<EnemyAI>();
-//        if (enemyAI != null)
-//        {
-//            // call enemy health decrement
-//            Destroy(gameObject);
-//            Destroy(enemyAI.gameObject);
-//        }
-//    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         Debug.Log("Bullet collided with " + collision.gameObject);

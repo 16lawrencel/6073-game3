@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class EnemyElephant : EnemyAI
 {
-    public float speed = 0.1f;
-    public float THRESHOLD = .01f;
-
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
+        SetSpeed(Globals.ENEMY_ELEPHANT_SPEED);
     }
 
     // Update is called once per frame
@@ -19,16 +17,7 @@ public class EnemyElephant : EnemyAI
         base.Update();
         if (player != null)
         {
-            MoveTowards(player.transform.position, speed);
+            MoveTowards(player.transform.position);
         }
-    }
-
-    bool MoveTowards(Vector3 position, float speed)
-    {
-        Debug.Log("moving at speed " + speed);
-        // https://forum.unity.com/threads/make-object-continue-moving-to-destination.134459/
-        float distance = Vector2.Distance(transform.position, position);
-        transform.position = Vector2.Lerp(transform.position, position, speed * Time.deltaTime / distance);
-        return distance > THRESHOLD;
     }
 }

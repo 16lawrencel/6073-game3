@@ -32,6 +32,9 @@ public class PlayerCollision : MonoBehaviour
             case "Exit":
                 MoveToExit(collisionObject);
                 break;
+            case "EnemyBullet":
+                HitByBullet(collisionObject);
+                break;
             default:
                 break;
         }
@@ -55,12 +58,22 @@ public class PlayerCollision : MonoBehaviour
         transform.position += enemyToPlayer * 3;
         movement.SetStunned();
 
-        // deal damage
-        health.Decrement(1);
+        TakeDamage(1);
+    }
+
+    private void HitByBullet(GameObject enemyBullet)
+    {
+        TakeDamage(1);
+        Destroy(enemyBullet);
+    }
+
+    private void TakeDamage(int damage)
+    {
+        health.Decrement(damage);
         if (health.GetCurrentHP() <= 0)
-		{
+        {
             PlayerDeath();
-		}
+        }
 
         // play hurt sound 
         SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Player_Damage"]);
