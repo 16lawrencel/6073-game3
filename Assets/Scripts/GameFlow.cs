@@ -23,7 +23,8 @@ public class GameFlow : MonoBehaviour
     private int ROOM_HEIGHT = 400;
     private int ROOM_GAP = 100;
 
-    public float playerSpeed = 15f;
+    public float playerSpeed = 10f;
+    public int bulletCount = 1;
 
     public GameObject player;
     public Camera camera;

@@ -6,6 +6,8 @@ using static RoomHash;
 public class Room : MonoBehaviour
 {
     public GameObject powerupPrefab;
+    public GameObject healthPowerupPrefab;
+    public GameObject bulletCountPowerupPrefab;
     public GameObject enemyPrefab;
 
     public string seed;
@@ -17,6 +19,8 @@ public class Room : MonoBehaviour
     {
         List<Vector2Int> enemyPos = RoomHash.GetEnemyPositions(seed, roomX, roomY);
         List<Vector2Int> powerupPos = RoomHash.GetPowerupPositions(seed, roomX, roomY);
+        List<Vector2Int> healthPowerupPos = RoomHash.GetPowerupPositions("health", roomX, roomY);
+        List<Vector2Int> bulletCountPowerupPos = RoomHash.GetPowerupPositions("bulletCount", roomX, roomY);
 
         foreach (Vector2Int pos in enemyPos)
         {
@@ -29,6 +33,18 @@ public class Room : MonoBehaviour
         {
             GameObject powerup = Instantiate(powerupPrefab, new Vector2(3 * pos.x, 2 * pos.y), Quaternion.identity);
             powerup.transform.parent = transform;
+        }
+
+        foreach (Vector2Int pos in healthPowerupPos)
+        {
+            GameObject healthPowerup = Instantiate(healthPowerupPrefab, new Vector2(3 * pos.x, 2 * pos.y), Quaternion.identity);
+            healthPowerup.transform.parent = transform;
+        }
+
+        foreach (Vector2Int pos in bulletCountPowerupPos)
+        {
+            GameObject bulletCountPowerup = Instantiate(bulletCountPowerupPrefab, new Vector2(3 * pos.x, 2 * pos.y), Quaternion.identity);
+            bulletCountPowerup.transform.parent = transform;
         }
     }
 }

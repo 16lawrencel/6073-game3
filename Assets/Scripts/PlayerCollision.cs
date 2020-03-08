@@ -21,33 +21,53 @@ public class PlayerCollision : MonoBehaviour
 
         GameObject collisionObject = collision.gameObject;
 
-        switch (collisionObject.tag)
+        if (collisionObject.tag.Contains("Powerup"))
         {
-            case "Powerup":
-                CollectPowerup(collisionObject);
-                break;
-            case "Enemy":
-                AttackedByEnemy(collisionObject);
-                break;
-            case "Exit":
-                MoveToExit(collisionObject);
-                break;
-            case "EnemyBullet":
-                HitByBullet(collisionObject);
-                break;
-            default:
-                break;
+            CollectPowerup(collisionObject);
         }
+        else {
+            switch (collisionObject.tag)
+            {
+                case "Enemy":
+                    AttackedByEnemy(collisionObject);
+                    break;
+                case "Exit":
+                    MoveToExit(collisionObject);
+                    break;
+                case "EnemyBullet":
+                    HitByBullet(collisionObject);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
     }
 
     private void CollectPowerup(GameObject powerup)
 	{
-        // play sound effect
-        //SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Powerup"]);
-        if (GameFlow.Instance.playerSpeed < 50f)
+        switch (powerup.tag)
         {
-            GameFlow.Instance.playerSpeed *= 2;
+            case "SpeedPowerup":
+                if (GameFlow.Instance.playerSpeed < 50f)
+                {
+                    GameFlow.Instance.playerSpeed += 10f;
+                }
+                break;
+            case "HealthPowerup":
+                health.Increment();
+                break;
+            case "BulletCountPowerup":
+                if (GameFlow.Instance.bulletCount < 5)
+                {
+                    GameFlow.Instance.bulletCount++;
+                }
+                break;
         }
+        // play sound effect
+        SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Powerup"]);
+
         Destroy(powerup);
     }
 

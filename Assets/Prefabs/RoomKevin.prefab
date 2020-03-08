@@ -277,6 +277,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupPrefab: {fileID: 7563199055743731264, guid: 243e842896c0f41c8b55b8e9c86fadfc,
     type: 3}
+  healthPowerupPrefab: {fileID: 813195587572558638, guid: fd2258d33bc3943d3ad7e64e2be83224,
+    type: 3}
+  bulletCountPowerupPrefab: {fileID: 5784116931840393346, guid: 940a7b6c1fe4e4c439be19ba20b3d831,
+    type: 3}
   enemyPrefab: {fileID: 6335729263102053828, guid: ae051682445354870b483633ffd9cfe9,
     type: 3}
   seed: 

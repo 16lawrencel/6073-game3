@@ -12,6 +12,7 @@ public class Shooting : MonoBehaviour
     public Transform gun;
     public float cooldown = 0.5f; // number of seconds of cooldown
     internal float curCooldown = 0;
+    public GameObject[] bulletObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +33,22 @@ public class Shooting : MonoBehaviour
             if (curCooldown <= 0f)
 			{
                 curCooldown = cooldown;
-                GameObject bulletObj = Instantiate(bulletPrefab, gameObject.transform.position + new Vector3(0, 0, 0.01f), Quaternion.identity);
-                Bullet bullet = (Bullet) bulletObj.GetComponent<Bullet>();
-                bullet.setDirection(mousePosition - gameObject.transform.position);
-                bullet.setSpeed(Globals.BULLET_SPEED);
+                int numBullets = GameFlow.Instance.bulletCount;
+                bulletObjects = new GameObject[numBullets];
+                for (int i = 0; i < numBullets; i++)
+                {
+                    bulletObjects[i] = Instantiate(bulletPrefab, gameObject.transform.position + new Vector3(0, 0, 0.01f), Quaternion.identity);
+                    GameObject bulletObj = bulletObjects[i];
+                    Bullet bullet = (Bullet)bulletObj.GetComponent<Bullet>();
+                    Vector3 direction = Quaternion.Euler(0, 0, (i-numBullets/2)*10) * (mousePosition - gameObject.transform.position);
+                    bullet.setDirection(direction);
+                    bullet.setSpeed(Globals.BULLET_SPEED);
+                }
+                //GameObject bulletObj = Instantiate(bulletPrefab, gameObject.transform.position + new Vector3(0, 0, 0.01f), Quaternion.identity);
+                //Bullet bullet = (Bullet) bulletObj.GetComponent<Bullet>();
+                //Vector3 direction = Quaternion.Euler(0, 0, 30) * (mousePosition - gameObject.transform.position);
+                //bullet.setDirection(direction);
+                //bullet.setSpeed(Globals.BULLET_SPEED);
 
                 //bubble sound
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Shoot_Bubble"], 0.5f);
