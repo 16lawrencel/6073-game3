@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114580537777348284}
   - component: {fileID: 1902291075556609890}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyElephant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd6300a1fd824b08869a5a075b32cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  onDeath: {fileID: 7667353194472809877, guid: ecf424b426b2143d19d308a63bbda935, type: 3}
   THRESHOLD: 0.01
 --- !u!114 &1902291075556609890
 MonoBehaviour:

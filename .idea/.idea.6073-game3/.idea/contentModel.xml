@@ -46,9 +46,12 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="Bullet.cs" t="Include" />
+          <e p="BulletEnemy.cs" t="Include" />
           <e p="CameraShake.cs" t="Include" />
           <e p="Destroyer.cs" t="Include" />
           <e p="EnemyAI.cs" t="Include" />
+          <e p="EnemyElephant.cs" t="Include" />
+          <e p="EnemyShooter.cs" t="Include" />
           <e p="Exit.cs" t="Include" />
           <e p="GameFlow.cs" t="Include" />
           <e p="Generation.cs" t="Include" />
