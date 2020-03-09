@@ -370,8 +370,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallTile: {fileID: 7436398285266712757, guid: 7da17e98ab09145febe35e8787634e17,
     type: 3}
-  wallTop: {fileID: 0}
+  floorTile: {fileID: 7436398285266712757, guid: 77cb8a0f657a5407c9a7bed5d51c9bb4,
+    type: 3}
   wallTiles: {fileID: 491847517}
+  floorTiles: {fileID: 2099137861}
 --- !u!1001 &982375941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -641,3 +643,9 @@ Transform:
   m_Father: {fileID: 443693682}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2099137861 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2146963043447134339, guid: 7f60374c0c05b452ba36de0ebe10bffc,
+    type: 3}
+  m_PrefabInstance: {fileID: 491847515}
+  m_PrefabAsset: {fileID: 0}

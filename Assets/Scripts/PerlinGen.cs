@@ -5,8 +5,7 @@ using UnityEngine;
 public class PerlinGen : MonoBehaviour
 {
     public Transform wallTile;
-
-    public Sprite wallTop;
+    public Transform floorTile;
 
     private int edgeWidth = 3;
 
@@ -17,6 +16,7 @@ public class PerlinGen : MonoBehaviour
     private int[,] world;
 
     public Transform wallTiles;
+    public Transform floorTiles;
 
 
     void Start()
@@ -26,10 +26,15 @@ public class PerlinGen : MonoBehaviour
         {
             for (int y = 0; y < maxY; y++)
             {
+                Vector3 pos = new Vector3(x * wallWidth, y * wallWidth, 2);
                 if (IsWall(x, y))
                 {
-                    Vector3 pos = new Vector3(x * wallWidth, y * wallWidth, 2);
                     Transform t = CreateTile(wallTile, pos, null, wallTiles);
+                    t.localScale = new Vector3(wallWidth, wallWidth);
+                }
+                else
+                {
+                    Transform t = CreateTile(floorTile, pos, null, floorTiles);
                     t.localScale = new Vector3(wallWidth, wallWidth);
                 }
             }
