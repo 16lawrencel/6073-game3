@@ -9,10 +9,11 @@ public class PerlinGen : MonoBehaviour
 
     private int edgeWidth = 3;
 
-    private static float wallWidth = 1f;
+    private static float wallWidth = 2f;
     private static float scale = 0.1f;
-    private static int maxX = (int)(100f / wallWidth);
-    private static int maxY = (int)(100f / wallWidth);
+    private static int maxX = 25;
+    private static int maxY = 25;
+
     private int[,] world;
 
     public Transform wallTiles;
@@ -22,20 +23,18 @@ public class PerlinGen : MonoBehaviour
     void Start()
     {
         world = new int[maxX, maxY];
-        for (int x = 0; x < maxX; x++)
+        for (int x = -maxX / 2; x <= maxX / 2; x++)
         {
-            for (int y = 0; y < maxY; y++)
+            for (int y = -maxY / 2; y <= maxY / 2; y++)
             {
-                Vector3 pos = new Vector3(x * wallWidth, y * wallWidth, 2);
-                if (IsWall(x, y))
+                Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
+                if (IsWall(pos.x, pos.y))
                 {
                     Transform t = CreateTile(wallTile, pos, null, wallTiles);
-                    t.localScale = new Vector3(wallWidth, wallWidth);
                 }
                 else
                 {
                     Transform t = CreateTile(floorTile, pos, null, floorTiles);
-                    t.localScale = new Vector3(wallWidth, wallWidth);
                 }
             }
         }
