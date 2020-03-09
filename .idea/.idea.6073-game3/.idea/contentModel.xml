@@ -60,6 +60,7 @@
           <e p="Health.cs" t="Include" />
           <e p="HealthBar.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
+          <e p="PerlinGen.cs" t="Include" />
           <e p="PlayerAnimation.cs" t="Include" />
           <e p="PlayerCollision.cs" t="Include" />
           <e p="Room.cs" t="Include" />

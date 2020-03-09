@@ -52,9 +52,6 @@ public class EnemyAI : MonoBehaviour
 
     protected bool MoveTowards(Vector3 position) {
         position.z = transform.position.z;
-//        Debug.Log(transform.position);
-//        Debug.Log(position);
-        Debug.Log("EnemyAI is moving at speed " + speed);
         // https://forum.unity.com/threads/make-object-continue-moving-to-destination.134459/
         float distance = Vector2.Distance(transform.position, position);
         transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime / distance);

@@ -19,9 +19,11 @@ public class GameFlow : MonoBehaviour
 
     public string seed;
 
-    private int ROOM_WIDTH = 800;
-    private int ROOM_HEIGHT = 400;
-    private int ROOM_GAP = 100;
+    private static float wallWidth = 2f;
+    private static float ROOM_WIDTH = wallWidth * 25;
+    private static float ROOM_HEIGHT = wallWidth * 25;
+
+    private static float ROOM_GAP = 100;
 
     public float playerSpeed = 10f;
     public float bulletRange = 2;
@@ -59,60 +61,62 @@ public class GameFlow : MonoBehaviour
     }
 
     void Start()
-	{
-        currentRoomPosition = new Vector2Int(0, 0);
-        CreateRoom(currentRoomPosition);
-        SetNewRoom(currentRoomPosition);
-	}
-
-    public void MoveRoom(int deltaX, int deltaY)
     {
-        Vector2Int newRoomPosition = currentRoomPosition + (new Vector2Int(deltaX, deltaY));
-        GameObject newRoom;
-
-        if (!rooms.ContainsKey(newRoomPosition))
-        {
-            newRoom = CreateRoom(newRoomPosition);
-        }
-        else
-        {
-            newRoom = rooms[newRoomPosition];
-        }
-
-        SetNewRoom(newRoomPosition);
-
-        player.transform.position = new Vector2(-8 * deltaX - 5, -8 * deltaY + 5);
+        //currentRoomPosition = new Vector2Int(0, 0);
+        //CreateRoom(currentRoomPosition);
     }
 
-    private void SetNewRoom(Vector2Int newRoomPosition)
+    void Update()
     {
-        GameObject currentRoom = rooms[currentRoomPosition];
-        GameObject currentMinimapRoom = minimapRooms[currentRoomPosition];
-        currentRoom.SetActive(false);
-        currentMinimapRoom.GetComponent<SpriteRenderer>().color = unoccupiedColor;
+        Vector3 cameraPos = camera.transform.position;
+        Vector3 playerPos = player.transform.position;
 
-        GameObject newRoom = rooms[newRoomPosition];
-        GameObject newMinimapRoom = minimapRooms[newRoomPosition];
-        newRoom.SetActive(true);
-        newMinimapRoom.GetComponent<SpriteRenderer>().color = occupiedColor;
+        Vector3 screenSize = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        float screenWidth = screenSize.x;
+        float screenHeight = screenSize.y;
 
-        Vector3 pos = newMinimapRoom.transform.position;
-        minimapCamera.gameObject.transform.position = new Vector3(pos.x, pos.y, -100);
+        float worldMinX = cameraPos.x - screenWidth - ROOM_WIDTH;
+        float worldMaxX = cameraPos.x + screenWidth + ROOM_WIDTH;
+        float worldMinY = cameraPos.y - screenHeight - ROOM_HEIGHT;
+        float worldMaxY = cameraPos.y + screenHeight + ROOM_HEIGHT;
 
-        currentRoomPosition = newRoomPosition;
+        int minX = (int)(worldMinX / ROOM_WIDTH);
+        int maxX = (int)(worldMaxX / ROOM_WIDTH);
+        int minY = (int)(worldMinY / ROOM_HEIGHT);
+        int maxY = (int)(worldMaxY / ROOM_HEIGHT);
+
+        Debug.Log("x: " + minX + ", " + maxX);
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                CreateRoomIfNotExist(x, y);
+            }
+        }
+    }
+
+    private void CreateRoomIfNotExist(int x, int y)
+    {
+        Vector2Int roomPos = new Vector2Int(x, y);
+
+        //Debug.Log(roomPos);
+
+        if (!rooms.ContainsKey(roomPos))
+        {
+            Debug.Log("Generating room");
+            GameObject newRoom = CreateRoom(roomPos);
+        }
     }
 
 
     private GameObject CreateRoom(Vector2Int roomPosition)
     {
-        CreateMinimapRoom(roomPosition);
+        Vector3 worldRoomPosition = transform.position + (new Vector3(roomPosition.x * ROOM_WIDTH, roomPosition.y * ROOM_HEIGHT));
 
-        GameObject room = Instantiate(roomPrefab, transform.position, Quaternion.identity);
+        GameObject room = Instantiate(roomPrefab, worldRoomPosition, Quaternion.identity);
         room.name = "Room " + roomPosition;
         room.transform.parent = namespaceRooms.transform;
-
-        room.transform.Find("Canvas").GetComponent<Canvas>().worldCamera = camera;
-        room.transform.Find("Canvas").Find("RoomText").GetComponent<Text>().text = room.name;
 
         room.GetComponent<Room>().seed = seed;
         room.GetComponent<Room>().roomX = roomPosition.x;
@@ -123,38 +127,20 @@ public class GameFlow : MonoBehaviour
         return room;
     }
 
-    private void CreateMinimapRoom(Vector2Int roomPosition)
+    public void MoveRoom(int deltaX, int deltaY)
     {
-        GameObject minimapRoom = new GameObject("Minimap Room " + roomPosition);
-        minimapRoom.transform.parent = namespaceMinimapRooms.transform;
-        Vector2 centerPixels = GetRoomCenter(roomPosition);
-        Vector2 centerPixelsAdjusted = new Vector2(centerPixels.x / 5 + camera.pixelWidth / 2, centerPixels.y / 5 + camera.pixelHeight / 2); // TODO: make this less hacky
-        Vector2 centerWorld = camera.ScreenToWorldPoint(centerPixelsAdjusted);
-        minimapRoom.transform.localPosition = centerWorld;
-        minimapRoom.layer = Globals.MINIMAP_LAYER;
-
-        SpriteRenderer renderer = minimapRoom.AddComponent<SpriteRenderer>();
-        renderer.sprite = pixel;
-        renderer.transform.localScale = new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
-
-        minimapRooms.Add(roomPosition, minimapRoom);
-    }
-
-    // returns the center of the room in minimap pixel coordinates given its
-    // position in integer coordinates
-    private Vector2 GetRoomCenter(Vector2Int roomPosition)
-    {
-        return new Vector3(roomPosition.x * (ROOM_WIDTH + ROOM_GAP), roomPosition.y * (ROOM_HEIGHT + ROOM_GAP), -10);
+        Debug.Log("ERROR");
     }
 
     public GameObject GetCurrentRoom()
     {
-        return rooms[currentRoomPosition];
+        Debug.Log("ERROR");
+        return new GameObject();
     }
 
     // respawn player back to starting room
     public void RespawnPlayer()
     {
-        SetNewRoom(new Vector2Int(0, 0));
+        Debug.Log("ERROR");
     }
 }

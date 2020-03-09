@@ -712,12 +712,17 @@ PrefabInstance:
         type: 3}
       propertyPath: roomPrefab
       value: 
-      objectReference: {fileID: 2146963043681073956, guid: 282bc35cabb0a42aa95376b92b16ce8a,
+      objectReference: {fileID: 3004020949522660805, guid: df4faa465e62642c0a5a024a4cd5707c,
         type: 3}
     - target: {fileID: 5800178653352284006, guid: aa60e5e4aff714cf3b3f7c8b5f37f605,
         type: 3}
       propertyPath: bulletRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800178653352284006, guid: aa60e5e4aff714cf3b3f7c8b5f37f605,
+        type: 3}
+      propertyPath: splatHeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5800178653352284007, guid: aa60e5e4aff714cf3b3f7c8b5f37f605,
         type: 3}
@@ -921,7 +926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2049373203
 Light:
   m_ObjectHideFlags: 0
