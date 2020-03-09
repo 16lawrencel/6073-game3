@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     internal float speed;
     internal BoxCollider2D boxCollider;
     Camera camera;
+    private Vector3 initialpos;
 
     public Transform onDestroy;
 
@@ -16,12 +17,17 @@ public class Bullet : MonoBehaviour
     {
         camera = Camera.main;
         boxCollider = GetComponent<BoxCollider2D>();
+        initialpos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
+        if ((initialpos - transform.position).magnitude > GameFlow.Instance.bulletRange) {
+            Splat(false);
+            Destroy(gameObject);
+        }
     }
 
     void OnBecameInvisible()
@@ -38,12 +44,12 @@ public class Bullet : MonoBehaviour
         switch (collisionObject.tag) {
             case "Enemy":
                 collisionObject.GetComponent<EnemyAI>().TakeDamage(1);
-                Splat();
+                Splat(true);
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.6f);
                 break;
             case "Wall":
-                Splat();
+                Splat(true);
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.8f);
 
@@ -53,10 +59,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void Splat()
+    private void Splat(bool shake)
     {
         SpawnOnDestroy();
-        Camera.main.transform.parent.GetComponent<CameraShake>().Shake(1);
+        if (shake) {
+            Camera.main.transform.parent.GetComponent<CameraShake>().Shake(1);
+        }
     }
 
     private void SpawnOnDestroy()
