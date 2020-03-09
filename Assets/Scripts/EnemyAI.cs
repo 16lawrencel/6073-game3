@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
             GameFlow.Instance.splatHeight -= 0.001f;
             splat.localScale = new Vector3((1 + Random.value)*2, (1 + Random.value)*2, 0);
             splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
-            GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
+            GameObject currentRoom = GameFlow.Instance.GetRoom(transform.position);
             splat.transform.parent = currentRoom.transform.Find("Other");
             Camera.main.transform.parent.GetComponent<CameraShake>().Shake(1f);
             Destroy(gameObject);
