@@ -75,6 +75,7 @@ public class PlayerCollision : MonoBehaviour
 	{
         // get pushed back
         Vector3 enemyToPlayer = (transform.position - enemy.transform.position).normalized;
+        enemyToPlayer.z = 0;
         transform.position += enemyToPlayer * 3;
         movement.SetStunned();
 

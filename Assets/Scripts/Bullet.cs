@@ -9,8 +9,11 @@ public class Bullet : MonoBehaviour
     internal BoxCollider2D boxCollider;
     Camera camera;
     private Vector3 initialpos;
+    private float distMult = 1;
 
     public Transform onDestroy;
+    public Transform trail;
+    private float count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +21,30 @@ public class Bullet : MonoBehaviour
         camera = Camera.main;
         boxCollider = GetComponent<BoxCollider2D>();
         initialpos = transform.position;
+        distMult = 1 + Random.value * 0.2f;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
-        if ((initialpos - transform.position).magnitude > GameFlow.Instance.bulletRange) {
+        if ((initialpos - transform.position).magnitude > GameFlow.Instance.bulletRange*distMult) {
             Splat(false);
             Destroy(gameObject);
+        }
+
+        count -= Time.deltaTime;
+        if (count <= 0) {
+            count = 0.01f;
+            Transform splat = Instantiate(trail, 
+                transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), GameFlow.Instance.splatHeight - transform.position.z),
+                Quaternion.identity);
+            GameFlow.Instance.splatHeight -= 0.001f;
+            splat.localScale = new Vector3((1 + Random.value)*0.3f, (1 + Random.value)*0.3f, 0);
+            splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
+            // make splat the child of current room
+            GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
+            splat.transform.parent = currentRoom.transform.Find("Other");
         }
     }
 
@@ -63,17 +81,18 @@ public class Bullet : MonoBehaviour
     {
         SpawnOnDestroy();
         if (shake) {
-            Camera.main.transform.parent.GetComponent<CameraShake>().Shake(1);
+            Camera.main.transform.parent.GetComponent<CameraShake>().Shake(0.3f);
         }
     }
 
     private void SpawnOnDestroy()
     {
         Transform splat = Instantiate(onDestroy, 
-            transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), 0),
+            transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), GameFlow.Instance.splatHeight - transform.position.z),
             Quaternion.identity);
         splat.localScale = new Vector3(1 + Random.value, 1 + Random.value, 0);
         splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
+        GameFlow.Instance.splatHeight -= 0.001f;
         // make splat the child of current room
         GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
         splat.transform.parent = currentRoom.transform.Find("Other");

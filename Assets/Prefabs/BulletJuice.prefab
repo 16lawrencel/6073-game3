@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDestroy: {fileID: 7667353194472809877, guid: b1a776cb0228b4e5fb505661918ee7b7,
     type: 3}
+  trail: {fileID: 7667353194472809877, guid: e1c4d095e0b9646af9223a0cf5481d5c, type: 3}
 --- !u!58 &58506755254116664
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-        bar.transform.localScale = new Vector2(1f, 1f);
+        bar.transform.localScale = new Vector3(1f, 1f, 1);
         bar.transform.position = new Vector3(bar.transform.position.x, bar.transform.position.y, -1f);
     }
 
@@ -31,7 +31,7 @@ public class HealthBar : MonoBehaviour
         background.GetComponent<SpriteRenderer>().enabled = enabled;
         barSprite.GetComponent<SpriteRenderer>().enabled = enabled;
 
-        bar.transform.localScale = new Vector2(percentage, 1f);
+        bar.transform.localScale = new Vector3(percentage, 1f, 1);
     }
 
     // used by InfoMenu to hook up healthbar to original unit's health

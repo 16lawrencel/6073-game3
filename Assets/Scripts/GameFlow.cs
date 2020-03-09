@@ -27,6 +27,8 @@ public class GameFlow : MonoBehaviour
     public float bulletRange = 2;
     public int bulletCount = 1;
 
+    public float splatHeight = 1;
+
     public GameObject player;
     public Camera camera;
     public Camera minimapCamera;

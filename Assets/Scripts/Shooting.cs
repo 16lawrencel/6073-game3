@@ -37,7 +37,7 @@ public class Shooting : MonoBehaviour
                 bulletObjects = new GameObject[numBullets];
                 for (int i = 0; i < numBullets; i++)
                 {
-                    bulletObjects[i] = Instantiate(bulletPrefab, gameObject.transform.position + new Vector3(0, 0, 0.01f), Quaternion.identity);
+                    bulletObjects[i] = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, 0.1f), Quaternion.identity);
                     GameObject bulletObj = bulletObjects[i];
                     Bullet bullet = (Bullet)bulletObj.GetComponent<Bullet>();
                     Vector3 direction = Quaternion.Euler(0, 0, (i-numBullets/2)*10) * (mousePosition - gameObject.transform.position);

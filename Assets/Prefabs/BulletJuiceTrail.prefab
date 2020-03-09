@@ -4953,7 +4953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7667353194472809877}
   m_Layer: 0
-  m_Name: BulletJuiceOnHit
+  m_Name: BulletJuiceTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4968,7 +4968,7 @@ Transform:
   m_GameObject: {fileID: 7667353194472809882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.68, y: -0.056040075, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 544060773686624303}
   - {fileID: 893353635015228815}
