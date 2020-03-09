@@ -84,9 +84,6 @@ public class GameFlow : MonoBehaviour
         int minY = (int)(worldMinY / ROOM_HEIGHT);
         int maxY = (int)(worldMaxY / ROOM_HEIGHT);
 
-        Debug.Log("x: " + minX + ", " + maxX);
-        Debug.Log("y: " + minY + ", " + maxY);
-
         for (int x = minX; x <= maxX; x++)
         {
             for (int y = minY; y <= maxY; y++)
@@ -99,8 +96,6 @@ public class GameFlow : MonoBehaviour
     private void CreateRoomIfNotExist(int x, int y)
     {
         Vector2Int roomPos = new Vector2Int(x, y);
-
-        //Debug.Log(roomPos);
 
         if (!rooms.ContainsKey(roomPos))
         {
@@ -117,10 +112,6 @@ public class GameFlow : MonoBehaviour
         GameObject room = Instantiate(roomPrefab, worldRoomPosition, Quaternion.identity);
         room.name = "Room " + roomPosition;
         room.transform.parent = namespaceRooms.transform;
-
-        room.GetComponent<Room>().seed = seed;
-        room.GetComponent<Room>().roomX = roomPosition.x;
-        room.GetComponent<Room>().roomY = roomPosition.y;
 
         rooms.Add(roomPosition, room);
 
