@@ -6,4 +6,5 @@ obj
 .vs
 6073-project3.sln
 Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
 .DS_Store
