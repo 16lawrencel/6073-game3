@@ -123,10 +123,27 @@ public class GameFlow : MonoBehaviour
         Debug.Log("ERROR");
     }
 
-    public GameObject GetCurrentRoom()
+    public Vector2Int GetRoomPosition(float x, float y)
     {
-        Debug.Log("ERROR");
-        return new GameObject();
+        int roomX = Mathf.FloorToInt((x + ROOM_WIDTH / 2) / ROOM_WIDTH);
+        int roomY = Mathf.FloorToInt((y + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
+        return new Vector2Int(roomX, roomY);
+    }
+
+    public GameObject GetRoom(Vector3 position)
+    {
+        float x = position.x;
+        float y = position.y;
+
+        Vector2Int roomPosition = GetRoomPosition(x, y);
+        if (rooms.ContainsKey(roomPosition))
+        {
+            return rooms[roomPosition];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     // respawn player back to starting room
