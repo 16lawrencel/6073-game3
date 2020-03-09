@@ -71,14 +71,13 @@ public class GameFlow : MonoBehaviour
         Vector3 cameraPos = camera.transform.position;
         Vector3 playerPos = player.transform.position;
 
-        Vector3 screenSize = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
-        float screenWidth = screenSize.x;
-        float screenHeight = screenSize.y;
+        float cameraHeight = 2f * camera.orthographicSize;
+        float cameraWidth = cameraHeight * camera.aspect;
 
-        float worldMinX = cameraPos.x - screenWidth - ROOM_WIDTH;
-        float worldMaxX = cameraPos.x + screenWidth + ROOM_WIDTH;
-        float worldMinY = cameraPos.y - screenHeight - ROOM_HEIGHT;
-        float worldMaxY = cameraPos.y + screenHeight + ROOM_HEIGHT;
+        float worldMinX = cameraPos.x - cameraWidth - ROOM_WIDTH;
+        float worldMaxX = cameraPos.x + cameraWidth + ROOM_WIDTH;
+        float worldMinY = cameraPos.y - cameraHeight - ROOM_HEIGHT;
+        float worldMaxY = cameraPos.y + cameraHeight + ROOM_HEIGHT;
 
         int minX = (int)(worldMinX / ROOM_WIDTH);
         int maxX = (int)(worldMaxX / ROOM_WIDTH);
@@ -86,6 +85,7 @@ public class GameFlow : MonoBehaviour
         int maxY = (int)(worldMaxY / ROOM_HEIGHT);
 
         Debug.Log("x: " + minX + ", " + maxX);
+        Debug.Log("y: " + minY + ", " + maxY);
 
         for (int x = minX; x <= maxX; x++)
         {
