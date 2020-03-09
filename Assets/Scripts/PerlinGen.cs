@@ -18,6 +18,7 @@ public class PerlinGen : MonoBehaviour
     private static int maxX = 25;
     private static int maxY = 25;
 
+    private static float offset = 1000f;
     private static float scale = 0.05f;
     private static float wallThreshold = 0.6f; // must be > threshold to be wall
     private static float objectThreshold = 0.3f; // must be < threshold to have chance to spawn powerup / enemy
@@ -43,9 +44,9 @@ public class PerlinGen : MonoBehaviour
             for (int y = -maxY / 2; y <= maxY / 2; y++)
             {
                 Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
-                Vector3 objectPos = pos - new Vector3(0, 0, 2);
+                Vector3 objectPos = pos - new Vector3(0, 0, 4);
 
-                float noise = Mathf.PerlinNoise(pos.x * scale, pos.y * scale);
+                float noise = Mathf.PerlinNoise(pos.x * scale + offset, pos.y * scale + offset);
 
                 if (noise > wallThreshold)
                 {
