@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
             splat.localScale = new Vector3((1 + Random.value)*0.3f, (1 + Random.value)*0.3f, 0);
             splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
             // make splat the child of current room
-            GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
+            GameObject currentRoom = GameFlow.Instance.GetRoom(transform.position);
             splat.transform.parent = currentRoom.transform.Find("Other");
         }
     }
@@ -54,14 +54,14 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("Bullet collided with " + collision.gameObject);
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log("Bullet collided with " + collision.gameObject);
+        //Debug.Log(collision.gameObject.tag);
 
         GameObject collisionObject = collision.gameObject;
 
         switch (collisionObject.tag) {
             case "Enemy":
-                collisionObject.GetComponent<EnemyAI>().TakeDamage(1);
+                AttackEnemy(collisionObject);
                 Splat(true);
                 Destroy(gameObject);
                 SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Splash"], 0.6f);
@@ -74,6 +74,17 @@ public class Bullet : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void AttackEnemy(GameObject enemy)
+    {
+        Health enemyHealth = enemy.GetComponent<Health>();
+        enemyHealth.Decrement(1);
+        if (enemyHealth.GetCurrentHP() <= 0)
+        {
+            Debug.Log("Destroy");
+            Destroy(enemy);
         }
     }
 
@@ -94,7 +105,7 @@ public class Bullet : MonoBehaviour
         splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
         GameFlow.Instance.splatHeight -= 0.001f;
         // make splat the child of current room
-        GameObject currentRoom = GameFlow.Instance.GetCurrentRoom();
+        GameObject currentRoom = GameFlow.Instance.GetRoom(transform.position);
         splat.transform.parent = currentRoom.transform.Find("Other");
     }
 
