@@ -10,17 +10,32 @@ public class EnemyAI : MonoBehaviour
     public Transform onDeath;
     public float THRESHOLD = .01f;
 
+    internal GameObject currentRoom;
+
     // manually added Start method to be called from subclasses
     protected void Start()
     {
         player = GameObject.Find("Player");
         health = gameObject.GetComponent<Health>();
+
+        currentRoom = transform.parent.parent.parent.gameObject;
     }
 
     // manually added Update method to be called from subclasses
     protected void Update()
     {
+        // "hop" to its current room
+        // to prevent enemies which strayed too far from their
+        // starting room to get despawned
 
+        GameObject room = GameFlow.Instance.GetRoom(transform.position);
+
+        // careful to test for reference equality here
+        if (room != currentRoom)
+        {
+            currentRoom = room;
+            transform.parent = currentRoom.transform.Find("Generation").Find("Enemies");
+        }
     }
 
     public void TakeDamage(int damage)
