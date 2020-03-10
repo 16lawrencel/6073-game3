@@ -91,8 +91,18 @@ public class GameFlow : MonoBehaviour
                 CreateRoomIfNotExist(x, y);
             }
         }
+
+        for (int x = minX-1; x <= maxX+1; x++)
+            for (int y = minY-1; y <= maxY+1; y++)
+                if (x < minX || x > maxX || y < minY || y > maxY)
+                {
+                    DeactivateRoom(x, y);
+                }
     }
 
+
+    // creates a room at (x, y) if it doesn't exist
+    // then activates the room (whether it was created or not)
     private void CreateRoomIfNotExist(int x, int y)
     {
         Vector2Int roomPos = new Vector2Int(x, y);
@@ -102,8 +112,20 @@ public class GameFlow : MonoBehaviour
             Debug.Log("Generating room");
             GameObject newRoom = CreateRoom(roomPos);
         }
+
+        rooms[roomPos].SetActive(true);
     }
 
+    // deactivates the room at (x, y) if it exists
+    private void DeactivateRoom(int x, int y)
+    {
+        Vector2Int roomPos = new Vector2Int(x, y);
+
+        if (rooms.ContainsKey(roomPos))
+        {
+            rooms[roomPos].SetActive(false);
+        }
+    }
 
     private GameObject CreateRoom(Vector2Int roomPosition)
     {
