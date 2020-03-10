@@ -17,12 +17,6 @@ public class HealthBar : MonoBehaviour
         background = transform.Find("Background").gameObject;
     }
 
-    void Start()
-    {
-        bar.transform.localScale = new Vector3(1f, 1f, 1);
-        bar.transform.position = new Vector3(bar.transform.position.x, bar.transform.position.y, -1f);
-    }
-
     void Update()
     {
         float percentage = health.Percentage();
