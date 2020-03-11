@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LawrenceScene.unity
     guid: 76927a22f3d1d47fb8406f904881c224
   - enabled: 1
-    path: Assets/Scenes/BossScene.unity
-    guid: 623dbb1f3f8724e2dab37b095928900c
+    path: Assets/Scenes/WinScene.unity
+    guid: c3ad7586747494b1280edb9054715601
+  - enabled: 1
+    path: Assets/Scenes/LoseScene.unity
+    guid: 6f8692b04ac294a26b85292f5f573f6d
   m_configObjects: {}

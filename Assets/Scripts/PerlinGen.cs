@@ -105,6 +105,7 @@ public class PerlinGen : MonoBehaviour
     private void SpawnBossRoom(int x, int y)
     {
         Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
+        Vector3 objectPos = pos - new Vector3(0, 0, 4);
 
         if (x == -maxX / 2 || x == maxX / 2 || y == -maxY / 2 || y == maxY / 2)
         {
@@ -113,6 +114,12 @@ public class PerlinGen : MonoBehaviour
         else
         {
             Transform t = CreateTile(floorTile, pos, null, floorTiles);
+        }
+
+        if (x == 0 && y == 8)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, objectPos, Quaternion.identity);
+            enemy.transform.parent = enemies;
         }
     }
 

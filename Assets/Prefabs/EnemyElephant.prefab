@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 7508903986502071114}
   - component: {fileID: 114580537777348284}
   - component: {fileID: 1902291075556609890}
+  - component: {fileID: 6767047284565705624}
   m_Layer: 0
   m_Name: EnemyElephant
   m_TagString: Enemy
@@ -260,6 +261,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 5
+--- !u!114 &6767047284565705624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335729263102053828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb6c271f95ca4cd0bb352ccc9c40164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9208033471902308081
 GameObject:
   m_ObjectHideFlags: 0

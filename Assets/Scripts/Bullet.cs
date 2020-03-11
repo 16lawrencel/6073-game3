@@ -83,8 +83,7 @@ public class Bullet : MonoBehaviour
         enemyHealth.Decrement(1);
         if (enemyHealth.GetCurrentHP() <= 0)
         {
-            Debug.Log("Destroy");
-            Destroy(enemy);
+            enemy.GetComponent<EnemyDeath>().Die();
         }
     }
 
