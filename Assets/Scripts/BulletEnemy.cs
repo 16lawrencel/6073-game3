@@ -26,6 +26,23 @@ public class BulletEnemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Debug.Log("Bullet collided with " + collision.gameObject);
+        //Debug.Log(collision.gameObject.tag);
+
+        GameObject collisionObject = collision.gameObject;
+
+        switch (collisionObject.tag)
+        {
+            case "Wall":
+                Destroy(gameObject);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void setDirection(Vector3 direction)
     {
         this.direction = new Vector3(direction.x, direction.y, 0).normalized;
