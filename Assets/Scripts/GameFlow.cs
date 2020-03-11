@@ -130,6 +130,7 @@ public class GameFlow : MonoBehaviour
         GameObject room = Instantiate(roomPrefab, worldRoomPosition, Quaternion.identity);
         room.name = "Room " + roomPosition;
         room.transform.parent = namespaceRooms.transform;
+        room.transform.Find("Generation").GetComponent<PerlinGen>().roomPosition = roomPosition;
 
         rooms.Add(roomPosition, room);
 

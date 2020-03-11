@@ -15,6 +15,13 @@ public class PerlinGen : MonoBehaviour
     public Transform wallTile;
     public Transform floorTile;
 
+    public Transform wallTiles;
+    public Transform floorTiles;
+    public Transform enemies; // TODO: make enemies "hop" rooms when they move away
+    public Transform powerups;
+
+    public Vector2Int roomPosition;
+
     private int edgeWidth = 3;
 
     private static float wallWidth = 2f;
@@ -34,11 +41,6 @@ public class PerlinGen : MonoBehaviour
 
     private int[,] world;
 
-    public Transform wallTiles;
-    public Transform floorTiles;
-    public Transform enemies; // TODO: make enemies "hop" rooms when they move away
-    public Transform powerups;
-
 
     void Start()
     {
@@ -56,7 +58,17 @@ public class PerlinGen : MonoBehaviour
     {
         if (!GameFlow.Instance.isBoss)
         {
-            SpawnObjectsPerlin(x, y);
+            // TODO: make player spawn location a special room
+
+            // with some probability, spawn miniboss room
+            if (roomPosition == (new Vector2Int(0, 1)))
+            {
+                SpawnMinibossRoom(x, y);
+            }
+            else
+            {
+                SpawnPerlinRoom(x, y);
+            }
         }
         else
         {
@@ -64,7 +76,7 @@ public class PerlinGen : MonoBehaviour
         }
     }
 
-    private void SpawnObjectsPerlin(int x, int y)
+    private void SpawnPerlinRoom(int x, int y)
     {
         Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
         Vector3 objectPos = pos - new Vector3(0, 0, 4);
@@ -108,6 +120,38 @@ public class PerlinGen : MonoBehaviour
                 GameObject powerup = Instantiate(bulletCountPowerupPrefab, objectPos, Quaternion.identity);
                 powerup.transform.parent = powerups;
             }
+        }
+    }
+
+    private void SpawnMinibossRoom(int x, int y)
+    {
+        Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
+        Vector3 objectPos = pos - new Vector3(0, 0, 4);
+
+        float outerRadius = 10;
+        float innerRadius = 8;
+        float eps = 1.2f;
+
+        Debug.Log(x * x + y * y);
+
+        // only affect area surrounding center in some radius
+        if (x*x + y*y > outerRadius * outerRadius)
+        {
+            SpawnPerlinRoom(x, y);
+        }
+        else if ((innerRadius - eps) * (innerRadius - eps) < x*x + y*y && x*x + y*y < innerRadius * innerRadius && (Mathf.Abs(x) > 1 || y > 0))
+        {
+            Transform t = CreateTile(wallTile, pos, null, wallTiles);
+        }
+        else
+        {
+            Transform t = CreateTile(floorTile, pos, null, floorTiles);
+        }
+
+        if (x == 0 && y == 0)
+        {
+            GameObject enemy = Instantiate(enemyShooterPrefab, objectPos, Quaternion.identity);
+            enemy.transform.parent = enemies;
         }
     }
 
