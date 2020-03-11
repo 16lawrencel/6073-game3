@@ -18,6 +18,12 @@ public class BulletEnemy : MonoBehaviour
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
+
+        if (!GameFlow.Instance.isBoss)
+        {
+            GameObject currentRoom = GameFlow.Instance.GetRoom(transform.position);
+            transform.parent = currentRoom.transform.Find("Other");
+        }
     }
 
     public void setDirection(Vector3 direction)
