@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour
             Transform splat = Instantiate(onDeath, 
                 transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), GameFlow.Instance.splatHeight - transform.position.z),
                 Quaternion.identity);
-            GameFlow.Instance.splatHeight -= 0.001f;
+            //GameFlow.Instance.splatHeight -= 0.001f;
             splat.localScale = new Vector3((1 + Random.value)*2, (1 + Random.value)*2, 0);
             splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
             GameObject currentRoom = GameFlow.Instance.GetRoom(transform.position);

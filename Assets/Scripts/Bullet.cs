@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
             Transform splat = Instantiate(trail, 
                 transform.position + new Vector3((Random.value - 0.5f), (Random.value - 0.5f), GameFlow.Instance.splatHeight - transform.position.z),
                 Quaternion.identity);
-            GameFlow.Instance.splatHeight -= 0.001f;
+            //GameFlow.Instance.splatHeight -= 0.001f;
             splat.localScale = new Vector3((1 + Random.value)*0.3f, (1 + Random.value)*0.3f, 0);
             splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
             // make splat the child of current room
@@ -102,7 +102,7 @@ public class Bullet : MonoBehaviour
             Quaternion.identity);
         splat.localScale = new Vector3(1 + Random.value, 1 + Random.value, 0);
         splat.eulerAngles = new Vector3(0, 0, Random.value * 360);
-        GameFlow.Instance.splatHeight -= 0.001f;
+        //GameFlow.Instance.splatHeight -= 0.001f;
         // make splat the child of current room
         GameObject currentRoom = GameFlow.Instance.GetRoom(transform.position);
         splat.transform.parent = currentRoom.transform.Find("Other");
