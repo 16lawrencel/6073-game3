@@ -83,7 +83,9 @@ MonoBehaviour:
     type: 3}
   bulletCountPowerupPrefab: {fileID: 4379831923894697334, guid: 66ef05197351c414ab3b709315b72156,
     type: 3}
-  enemyPrefab: {fileID: 6335729263102053828, guid: ae051682445354870b483633ffd9cfe9,
+  enemyElephantPrefab: {fileID: 9197947176105393971, guid: cf3932d0505d947cbbeb8a7b2ec62ea9,
+    type: 3}
+  enemyShooterPrefab: {fileID: 883793029856625083, guid: a0b7761b3942a4ff7a05c4671c25f30a,
     type: 3}
   wallTile: {fileID: 7436398285266712757, guid: e76e939c97272444ab6e292d0de73219,
     type: 3}

@@ -7,7 +7,8 @@ public class PerlinGen : MonoBehaviour
     public GameObject speedPowerupPrefab;
     public GameObject healthPowerupPrefab;
     public GameObject bulletCountPowerupPrefab;
-    public GameObject enemyPrefab;
+    public GameObject enemyElephantPrefab;
+    public GameObject enemyShooterPrefab;
 
     public Transform wallTile;
     public Transform floorTile;
@@ -23,7 +24,8 @@ public class PerlinGen : MonoBehaviour
     private static float wallThreshold = 0.6f; // must be > threshold to be wall
     private static float objectThreshold = 0.3f; // must be < threshold to have chance to spawn powerup / enemy
 
-    private static float enemyP = 0.05f; // probability of enemy
+    private static float enemyElephantP = 0.02f; // probability of enemy
+    private static float enemyShooterP = 0.01f;
     private static float speedPowerupP = 0.005f; // probability of speed powerup
     private static float healthPowerupP = 0.005f; // probability of health powerup
     private static float bulletPowerupP = 0.005f; // probability of bullet powerup
@@ -79,22 +81,27 @@ public class PerlinGen : MonoBehaviour
         if (noise < objectThreshold)
         {
             float rand = Random.Range(0f, 1f);
-            if (rand < enemyP)
+            if (rand < enemyElephantP)
             {
-                GameObject enemy = Instantiate(enemyPrefab, objectPos, Quaternion.identity);
+                GameObject enemy = Instantiate(enemyElephantPrefab, objectPos, Quaternion.identity);
                 enemy.transform.parent = enemies;
             }
-            else if (rand < enemyP + speedPowerupP)
+            else if (rand < enemyElephantP + enemyShooterP)
+            {
+                GameObject enemy = Instantiate(enemyShooterPrefab, objectPos, Quaternion.identity);
+                enemy.transform.parent = enemies;
+            }
+            else if (rand < enemyElephantP + enemyShooterP + speedPowerupP)
             {
                 GameObject powerup = Instantiate(speedPowerupPrefab, objectPos, Quaternion.identity);
                 powerup.transform.parent = powerups;
             }
-            else if (rand < enemyP + speedPowerupP + healthPowerupP)
+            else if (rand < enemyElephantP + enemyShooterP + speedPowerupP + healthPowerupP)
             {
                 GameObject powerup = Instantiate(healthPowerupPrefab, objectPos, Quaternion.identity);
                 powerup.transform.parent = powerups;
             }
-            else if (rand < enemyP + speedPowerupP + healthPowerupP + bulletPowerupP)
+            else if (rand < enemyElephantP + enemyShooterP + speedPowerupP + healthPowerupP + bulletPowerupP)
             {
                 GameObject powerup = Instantiate(bulletCountPowerupPrefab, objectPos, Quaternion.identity);
                 powerup.transform.parent = powerups;
@@ -118,7 +125,7 @@ public class PerlinGen : MonoBehaviour
 
         if (x == 0 && y == 8)
         {
-            GameObject enemy = Instantiate(enemyPrefab, objectPos, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyShooterPrefab, objectPos, Quaternion.identity);
             enemy.transform.parent = enemies;
         }
     }
