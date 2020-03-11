@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Player collided with " + collision.gameObject);
+        //Debug.Log("Player collided with " + collision.gameObject);
 
         GameObject collisionObject = collision.gameObject;
 
@@ -30,9 +31,6 @@ public class PlayerCollision : MonoBehaviour
             {
                 case "Enemy":
                     AttackedByEnemy(collisionObject);
-                    break;
-                case "Exit":
-                    MoveToExit(collisionObject);
                     break;
                 case "EnemyBullet":
                     HitByBullet(collisionObject);
@@ -100,19 +98,21 @@ public class PlayerCollision : MonoBehaviour
         SoundMixer.soundeffect.PlayOneShot(SoundMixer.sounds["Player_Damage"]);
     }
 
-    private void MoveToExit(GameObject exit)
-    {
-        int deltaX = exit.GetComponent<Exit>().deltaX;
-        int deltaY = exit.GetComponent<Exit>().deltaY;
-
-        GameFlow.Instance.MoveRoom(deltaX, deltaY);
-    }
-
     // on death, heal back to max and respawn back to starting point
     private void PlayerDeath()
     {
-        health.SetCurrentHP(health.maxHP);
-        transform.position = new Vector2(0, 0);
-        GameFlow.Instance.RespawnPlayer();
+        if (GameFlow.Instance.isBoss)
+        {
+            // go to lose screen
+            //GameFlow.Instance.DestroyObjectsOnLoad();
+            SceneManager.LoadScene("LoseScene");
+        }
+        else
+        {
+            // respawn player
+            health.SetCurrentHP(health.maxHP);
+            transform.position = new Vector2(0, 0);
+            GameFlow.Instance.RespawnPlayer();
+        }
     }
 }

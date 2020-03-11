@@ -43,45 +43,76 @@ public class PerlinGen : MonoBehaviour
         {
             for (int y = -maxY / 2; y <= maxY / 2; y++)
             {
-                Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
-                Vector3 objectPos = pos - new Vector3(0, 0, 4);
-
-                float noise = Mathf.PerlinNoise(pos.x * scale + offset, pos.y * scale + offset);
-
-                if (noise > wallThreshold)
-                {
-                    Transform t = CreateTile(wallTile, pos, null, wallTiles);
-                }
-                else
-                {
-                    Transform t = CreateTile(floorTile, pos, null, floorTiles);
-                }
-
-                if (noise < objectThreshold)
-                {
-                    float rand = Random.Range(0f, 1f);
-                    if (rand < enemyP)
-                    {
-                        GameObject enemy = Instantiate(enemyPrefab, objectPos, Quaternion.identity);
-                        enemy.transform.parent = enemies;
-                    }
-                    else if (rand < enemyP + speedPowerupP)
-                    {
-                        GameObject powerup = Instantiate(speedPowerupPrefab, objectPos, Quaternion.identity);
-                        powerup.transform.parent = powerups;
-                    }
-                    else if (rand < enemyP + speedPowerupP + healthPowerupP)
-                    {
-                        GameObject powerup = Instantiate(healthPowerupPrefab, objectPos, Quaternion.identity);
-                        powerup.transform.parent = powerups;
-                    }
-                    else if (rand < enemyP + speedPowerupP + healthPowerupP + bulletPowerupP)
-                    {
-                        GameObject powerup = Instantiate(bulletCountPowerupPrefab, objectPos, Quaternion.identity);
-                        powerup.transform.parent = powerups;
-                    }
-                }
+                SpawnObjects(x, y);
             }
+        }
+    }
+
+    private void SpawnObjects(int x, int y)
+    {
+        if (!GameFlow.Instance.isBoss)
+        {
+            SpawnObjectsPerlin(x, y);
+        }
+        else
+        {
+            SpawnBossRoom(x, y);
+        }
+    }
+
+    private void SpawnObjectsPerlin(int x, int y)
+    {
+        Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
+        Vector3 objectPos = pos - new Vector3(0, 0, 4);
+
+        float noise = Mathf.PerlinNoise(pos.x * scale + offset, pos.y * scale + offset);
+
+        if (noise > wallThreshold)
+        {
+            Transform t = CreateTile(wallTile, pos, null, wallTiles);
+        }
+        else
+        {
+            Transform t = CreateTile(floorTile, pos, null, floorTiles);
+        }
+
+        if (noise < objectThreshold)
+        {
+            float rand = Random.Range(0f, 1f);
+            if (rand < enemyP)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, objectPos, Quaternion.identity);
+                enemy.transform.parent = enemies;
+            }
+            else if (rand < enemyP + speedPowerupP)
+            {
+                GameObject powerup = Instantiate(speedPowerupPrefab, objectPos, Quaternion.identity);
+                powerup.transform.parent = powerups;
+            }
+            else if (rand < enemyP + speedPowerupP + healthPowerupP)
+            {
+                GameObject powerup = Instantiate(healthPowerupPrefab, objectPos, Quaternion.identity);
+                powerup.transform.parent = powerups;
+            }
+            else if (rand < enemyP + speedPowerupP + healthPowerupP + bulletPowerupP)
+            {
+                GameObject powerup = Instantiate(bulletCountPowerupPrefab, objectPos, Quaternion.identity);
+                powerup.transform.parent = powerups;
+            }
+        }
+    }
+
+    private void SpawnBossRoom(int x, int y)
+    {
+        Vector3 pos = new Vector3(transform.position.x + x * wallWidth, transform.position.y + y * wallWidth, 2);
+
+        if (x == -maxX / 2 || x == maxX / 2 || y == -maxY / 2 || y == maxY / 2)
+        {
+            Transform t = CreateTile(wallTile, pos, null, wallTiles);
+        }
+        else
+        {
+            Transform t = CreateTile(floorTile, pos, null, floorTiles);
         }
     }
 

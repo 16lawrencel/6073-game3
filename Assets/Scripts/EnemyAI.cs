@@ -31,7 +31,7 @@ public class EnemyAI : MonoBehaviour
         GameObject room = GameFlow.Instance.GetRoom(transform.position);
 
         // careful to test for reference equality here
-        if (room != currentRoom)
+        if (room != currentRoom && !GameFlow.Instance.isBoss)
         {
             currentRoom = room;
             transform.parent = currentRoom.transform.Find("Generation").Find("Enemies");

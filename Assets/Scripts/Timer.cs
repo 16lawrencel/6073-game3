@@ -25,12 +25,12 @@ public class Timer : MonoBehaviour
 
         if (currentTime == 0f)
         {
-            // trigger death scene
-            SceneManager.LoadScene("LoseScreen");
+            // set boss
+            GameFlow.Instance.SetBoss();
+            Destroy(gameObject);
         }
 
         timerText.text = "Time left: " + GetTimeString(currentTime);
-        Debug.Log(timerText.text);
     }
 
     private string GetTimeString(float time)
