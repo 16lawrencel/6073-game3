@@ -87,6 +87,8 @@ MonoBehaviour:
     type: 3}
   enemyShooterPrefab: {fileID: 883793029856625083, guid: a0b7761b3942a4ff7a05c4671c25f30a,
     type: 3}
+  enemyBossPrefab: {fileID: 8290886123480781709, guid: c2a89b566da164b1a829282204fad4da,
+    type: 3}
   wallTile: {fileID: 7436398285266712757, guid: e76e939c97272444ab6e292d0de73219,
     type: 3}
   floorTile: {fileID: 7436398285266712757, guid: 77cb8a0f657a5407c9a7bed5d51c9bb4,

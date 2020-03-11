@@ -7,8 +7,10 @@ public class PerlinGen : MonoBehaviour
     public GameObject speedPowerupPrefab;
     public GameObject healthPowerupPrefab;
     public GameObject bulletCountPowerupPrefab;
+
     public GameObject enemyElephantPrefab;
     public GameObject enemyShooterPrefab;
+    public GameObject enemyBossPrefab;
 
     public Transform wallTile;
     public Transform floorTile;
@@ -125,7 +127,7 @@ public class PerlinGen : MonoBehaviour
 
         if (x == 0 && y == 8)
         {
-            GameObject enemy = Instantiate(enemyShooterPrefab, objectPos, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyBossPrefab, objectPos, Quaternion.identity);
             enemy.transform.parent = enemies;
         }
     }
