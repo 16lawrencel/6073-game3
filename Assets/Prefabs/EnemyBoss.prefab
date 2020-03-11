@@ -14,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDeath: {fileID: 0}
   THRESHOLD: 0.01
+--- !u!114 &2697836344682690496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290886123480781709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81b1477af190495693e992c702bf0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 7667353194472809882, guid: 3c0d3697728884416a11eefe4ab28d37,
+    type: 3}
 --- !u!1001 &3900540078252534135
 PrefabInstance:
   m_ObjectHideFlags: 0
