@@ -28,7 +28,7 @@ public class BulletEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Bullet collided with " + collision.gameObject);
+        Debug.Log("Bullet collided with " + collision.gameObject);
         //Debug.Log(collision.gameObject.tag);
 
         GameObject collisionObject = collision.gameObject;
@@ -36,6 +36,10 @@ public class BulletEnemy : MonoBehaviour
         switch (collisionObject.tag)
         {
             case "Wall":
+                Destroy(gameObject);
+                break;
+            case "Player":
+                collisionObject.GetComponent<PlayerCollision>().TakeDamage(1);
                 Destroy(gameObject);
                 break;
             default:

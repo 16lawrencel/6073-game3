@@ -132,8 +132,6 @@ public class PerlinGen : MonoBehaviour
         float innerRadius = 8;
         float eps = 1.2f;
 
-        Debug.Log(x * x + y * y);
-
         // only affect area surrounding center in some radius
         if (x*x + y*y > outerRadius * outerRadius)
         {

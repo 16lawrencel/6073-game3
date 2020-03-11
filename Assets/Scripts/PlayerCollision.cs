@@ -32,9 +32,6 @@ public class PlayerCollision : MonoBehaviour
                 case "Enemy":
                     AttackedByEnemy(collisionObject);
                     break;
-                case "EnemyBullet":
-                    HitByBullet(collisionObject);
-                    break;
                 default:
                     break;
             }
@@ -80,13 +77,7 @@ public class PlayerCollision : MonoBehaviour
         TakeDamage(1);
     }
 
-    private void HitByBullet(GameObject enemyBullet)
-    {
-        TakeDamage(1);
-        Destroy(enemyBullet);
-    }
-
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         health.Decrement(damage);
         if (health.GetCurrentHP() <= 0)
